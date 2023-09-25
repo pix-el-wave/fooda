@@ -40,17 +40,6 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private Integer age;
 
-    @Builder
-    public Member(String name, String username, String password, Gender gender, Integer weight, Integer height, Integer age) {
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        this.gender = gender;
-        this.weight = weight;
-        this.height = height;
-        this.age = age;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

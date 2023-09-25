@@ -49,20 +49,6 @@ public class Food extends BaseEntity {
     @Column(nullable = false)
     private BigDecimal vitaminC;
 
-    @Builder
-    public Food(String name, BigDecimal kcal, BigDecimal carbs, BigDecimal protein, BigDecimal fat, BigDecimal vitaminA, BigDecimal vitaminB1, BigDecimal vitaminB2, BigDecimal vitaminB12, BigDecimal vitaminC) {
-        this.name = name;
-        this.kcal = kcal;
-        this.carbs = carbs;
-        this.protein = protein;
-        this.fat = fat;
-        this.vitaminA = vitaminA;
-        this.vitaminB1 = vitaminB1;
-        this.vitaminB2 = vitaminB2;
-        this.vitaminB12 = vitaminB12;
-        this.vitaminC = vitaminC;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

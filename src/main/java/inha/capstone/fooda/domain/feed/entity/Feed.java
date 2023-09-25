@@ -20,7 +20,7 @@ public class Feed extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member following;
+    private Member member;
 
     @Column(nullable = false)
     private Boolean open;
