@@ -29,7 +29,6 @@ public class FeedImage extends BaseEntity {
     private String fileNameStored;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
     private String url;
 
     @Override

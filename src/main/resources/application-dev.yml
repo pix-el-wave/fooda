@@ -1,0 +1,17 @@
+spring:
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+        defer-datasource-initialization: true
+  datasource:
+    url: ${FOODA_DB_URL_DEV}
+    username: ${FOODA_DB_USERNAME_DEV}
+    password: ${FOODA_DB_PASSWORD_DEV}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql.init.mode: always
