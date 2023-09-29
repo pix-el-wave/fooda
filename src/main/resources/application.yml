@@ -1,16 +1,14 @@
 spring:
   jpa:
     open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 100
-        hibernate.ddl-auto: create
         defer-datasource-initialization: true
-
-  datasource:
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+  profiles:
+    include: datasource
   sql.init.mode: always
