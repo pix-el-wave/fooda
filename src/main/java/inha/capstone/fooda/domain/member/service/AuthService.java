@@ -20,7 +20,7 @@ public class AuthService {
     public Long signUp(MemberDto memberDto) {
         // 아이디(닉네임) 중복 여부 확인
         if (memberRepository.existsByUsername(memberDto.getUsername())) {
-            throw new UsernameDuplicateException();
+            throw new UsernameDuplicateException(memberDto.getUsername() + " 는 이미 존재하는 username 입니다.");
         }
 
         Member savedMember = memberRepository.save(memberDto.toEntity());
