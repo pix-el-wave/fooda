@@ -5,6 +5,7 @@ import inha.capstone.fooda.domain.member.entity.Member;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
@@ -12,6 +13,7 @@ public class MemberDto {
     private Long id;
     private String name;
     private String username;
+    @Setter
     private String password;
     private Gender gender;
     private Integer weight;
