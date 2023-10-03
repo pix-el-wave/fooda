@@ -2,6 +2,7 @@ package inha.capstone.fooda.domain.member.service;
 
 import inha.capstone.fooda.domain.member.dto.MemberDto;
 import inha.capstone.fooda.domain.member.entity.Member;
+import inha.capstone.fooda.domain.member.entity.Role;
 import inha.capstone.fooda.domain.member.exception.JwtUnauthorizedException;
 import inha.capstone.fooda.domain.member.exception.UsernameDuplicateException;
 import inha.capstone.fooda.domain.member.exception.UsernameNotFoundExcpetion;
@@ -28,9 +29,8 @@ public class AuthService {
         }
 
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword())); // 비밀번호 암호화
-
-        Member savedMember = memberRepository.save(memberDto.toEntity());
-        savedMember.addUserAuthority(); // USER 권한 부여
+        memberDto.setRole(Role.USER); // USER 권한 부여
+        Member savedMember = memberRepository.save(memberDto.toEntity()); // 회원 저장
 
         return savedMember.getId();
     }

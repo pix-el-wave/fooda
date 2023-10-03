@@ -20,6 +20,7 @@ public class MemberDto {
     private Integer weight;
     private Integer height;
     private Integer age;
+    @Setter
     private Role role;
 
     public static MemberDto from(Member member) {

@@ -6,7 +6,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Objects;
 
@@ -55,24 +54,6 @@ public class Member extends BaseEntity {
         this.height = height;
         this.age = age;
         this.role = role;
-    }
-
-    /**
-     * 비밀번호가 일치하는지 확인하는 메소드
-     *
-     * @param passwordEncoder
-     * @param checkPassword
-     * @return 비밀번호가 일치하면 true
-     */
-    public boolean matchPassword(PasswordEncoder passwordEncoder, String checkPassword) {
-        return passwordEncoder.matches(checkPassword, getPassword());
-    }
-
-    /**
-     * 회원가입할 때, USER의 권한을 부여한다.
-     */
-    public void addUserAuthority() {
-        this.role = Role.USER;
     }
 
     @Override
