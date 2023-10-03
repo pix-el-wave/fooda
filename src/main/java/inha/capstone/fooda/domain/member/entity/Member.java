@@ -41,8 +41,11 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private Integer age;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @Builder
-    public Member(Long id, String name, String username, String password, Gender gender, Integer weight, Integer height, Integer age) {
+    public Member(Long id, String name, String username, String password, Gender gender, Integer weight, Integer height, Integer age, Role role) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -51,15 +54,7 @@ public class Member extends BaseEntity {
         this.weight = weight;
         this.height = height;
         this.age = age;
-    }
-
-    /**
-     * password를 암호화한다.
-     *
-     * @param passwordEncoder
-     */
-    public void encodePassword(PasswordEncoder passwordEncoder) {
-        this.password = passwordEncoder.encode(password);
+        this.role = role;
     }
 
     /**
@@ -71,6 +66,13 @@ public class Member extends BaseEntity {
      */
     public boolean matchPassword(PasswordEncoder passwordEncoder, String checkPassword) {
         return passwordEncoder.matches(checkPassword, getPassword());
+    }
+
+    /**
+     * 회원가입할 때, USER의 권한을 부여한다.
+     */
+    public void addUserAuthority() {
+        this.role = Role.USER;
     }
 
     @Override
