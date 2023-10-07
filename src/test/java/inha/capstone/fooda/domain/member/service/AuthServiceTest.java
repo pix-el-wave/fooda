@@ -51,7 +51,7 @@ class AuthServiceTest {
     }
 
     private MemberDto createMemberDto() {
-        return MemberDto.of("멤버1", "member1", "pwd1234!", Gender.MALE, 70, 180, 25);
+        return MemberDto.of("멤버1", "member1", "pwd1234!", Gender.MALE, 70, 180, 25, 60, 2000);
     }
 
     @Test

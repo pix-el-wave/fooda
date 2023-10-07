@@ -20,6 +20,8 @@ public class MemberDto {
     private Integer weight;
     private Integer height;
     private Integer age;
+    private Integer targetWeight;
+    private Integer targetKcal;
     @Setter
     private Role role;
 
@@ -33,12 +35,14 @@ public class MemberDto {
                 member.getWeight(),
                 member.getHeight(),
                 member.getAge(),
+                member.getTargetWeight(),
+                member.getTargetKcal(),
                 member.getRole()
         );
     }
 
-    public static MemberDto of(String name, String username, String password, Gender gender, Integer weight, Integer height, Integer age) {
-        return new MemberDto(null, name, username, password, gender, weight, height, age, null);
+    public static MemberDto of(String name, String username, String password, Gender gender, Integer weight, Integer height, Integer age, Integer targetWeight, Integer targetKcal) {
+        return new MemberDto(null, name, username, password, gender, weight, height, age, targetWeight, targetKcal, null);
     }
 
     public Member toEntity() {
@@ -50,6 +54,8 @@ public class MemberDto {
                 .gender(getGender())
                 .weight(getWeight())
                 .height(getHeight())
+                .targetWeight(getTargetWeight())
+                .targetKcal(getTargetKcal())
                 .age(getAge())
                 .role(getRole())
                 .build();
