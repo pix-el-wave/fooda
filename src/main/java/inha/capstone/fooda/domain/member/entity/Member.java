@@ -43,6 +43,13 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(nullable = false)
+    private Integer targetWeight;
+    @Column(nullable = false)
+
+    private Integer targetKcal;
+
+
     @Builder
     public Member(Long id, String name, String username, String password, Gender gender, Integer weight, Integer height, Integer age, Role role) {
         this.id = id;
