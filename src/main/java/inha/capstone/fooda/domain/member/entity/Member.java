@@ -6,7 +6,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Objects;
 
@@ -41,8 +40,11 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private Integer age;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @Builder
-    public Member(Long id, String name, String username, String password, Gender gender, Integer weight, Integer height, Integer age) {
+    public Member(Long id, String name, String username, String password, Gender gender, Integer weight, Integer height, Integer age, Role role) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -51,26 +53,7 @@ public class Member extends BaseEntity {
         this.weight = weight;
         this.height = height;
         this.age = age;
-    }
-
-    /**
-     * password를 암호화한다.
-     *
-     * @param passwordEncoder
-     */
-    public void encodePassword(PasswordEncoder passwordEncoder) {
-        this.password = passwordEncoder.encode(password);
-    }
-
-    /**
-     * 비밀번호가 일치하는지 확인하는 메소드
-     *
-     * @param passwordEncoder
-     * @param checkPassword
-     * @return 비밀번호가 일치하면 true
-     */
-    public boolean matchPassword(PasswordEncoder passwordEncoder, String checkPassword) {
-        return passwordEncoder.matches(checkPassword, getPassword());
+        this.role = role;
     }
 
     @Override
