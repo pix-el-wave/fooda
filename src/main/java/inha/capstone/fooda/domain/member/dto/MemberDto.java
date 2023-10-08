@@ -45,6 +45,10 @@ public class MemberDto {
         return new MemberDto(null, name, username, password, gender, weight, height, age, targetWeight, targetKcal, null);
     }
 
+    public static MemberDto of(Integer weight, Integer height, Integer age, Integer targetWeight, Integer targetKcal) {
+        return new MemberDto(null, null, null, null, null, weight, height, age, targetWeight, targetKcal, null);
+    }
+
     public Member toEntity() {
         return Member.builder()
                 .id(getId())
