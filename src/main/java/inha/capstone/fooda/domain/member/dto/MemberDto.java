@@ -64,4 +64,12 @@ public class MemberDto {
                 .role(getRole())
                 .build();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MemberDto)) return false;
+        MemberDto that = (MemberDto) o;
+        return this.getId() != null && this.getId().equals(that.getId());
+    }
 }
