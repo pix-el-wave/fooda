@@ -47,7 +47,15 @@ public class PostSignupMemberReqDto {
     @Schema(example = "25", description = "나이")
     private Integer age;
 
+    @NotNull(message = "목표체중을 입력해주세요")
+    @Schema(example = "60", description = "목표체중")
+    private Integer targetWeight;
+
+    @NotNull(message = "목표칼로리를 입력해주세요")
+    @Schema(example = "2000", description = "목표칼로리")
+    private Integer targetKcal;
+
     public MemberDto toDto() {
-        return MemberDto.of(getName(), getUsername(), getPassword(), getGender(), getWeight(), getHeight(), getAge());
+        return MemberDto.of(getName(), getUsername(), getPassword(), getGender(), getWeight(), getHeight(), getAge(), getTargetWeight(), getTargetKcal());
     }
 }
