@@ -43,8 +43,14 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(nullable = false)
+    private Integer targetWeight;
+
+    @Column(nullable = false)
+    private Integer targetKcal;
+
     @Builder
-    public Member(Long id, String name, String username, String password, Gender gender, Integer weight, Integer height, Integer age, Role role) {
+    public Member(Long id, String name, String username, String password, Gender gender, Integer weight, Integer height, Integer age, Role role, Integer targetWeight, Integer targetKcal) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -54,6 +60,8 @@ public class Member extends BaseEntity {
         this.height = height;
         this.age = age;
         this.role = role;
+        this.targetWeight = targetWeight;
+        this.targetKcal = targetKcal;
     }
 
     @Override

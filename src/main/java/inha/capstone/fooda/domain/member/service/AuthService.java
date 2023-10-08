@@ -27,7 +27,6 @@ public class AuthService {
         if (memberRepository.existsByUsername(memberDto.getUsername())) {
             throw new UsernameDuplicateException(memberDto.getUsername() + " 는 이미 존재하는 username 입니다.");
         }
-
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword())); // 비밀번호 암호화
         memberDto.setRole(Role.USER); // USER 권한 부여
         Member savedMember = memberRepository.save(memberDto.toEntity()); // 회원 저장
