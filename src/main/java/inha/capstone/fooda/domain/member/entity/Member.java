@@ -1,6 +1,7 @@
 package inha.capstone.fooda.domain.member.entity;
 
 import inha.capstone.fooda.domain.common.entity.BaseEntity;
+import inha.capstone.fooda.domain.member.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -62,6 +63,19 @@ public class Member extends BaseEntity {
         this.role = role;
         this.targetWeight = targetWeight;
         this.targetKcal = targetKcal;
+    }
+
+    /**
+     * memberDto에 따라 엔티티의 정보를 수정한다.
+     *
+     * @param memberDto 수정하려는 정보가 담긴 memberDto
+     */
+    public void update(MemberDto memberDto) {
+        this.height = memberDto.getHeight();
+        this.weight = memberDto.getWeight();
+        this.age = memberDto.getAge();
+        this.targetWeight = memberDto.getTargetWeight();
+        this.targetKcal = memberDto.getTargetKcal();
     }
 
     @Override
