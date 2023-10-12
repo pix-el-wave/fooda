@@ -28,7 +28,7 @@ public class MemberController {
             summary = "사용자 프로필 편집 화면 정보 조회 API",
             description = "<p>로그인한 사용자의 프로필 편집 화면의 정보를 조회합니다.</p>"
     )
-    @GetMapping(value = "/member/profile/settings")
+    @GetMapping(value = "/profile/settings")
     public ResponseEntity<DataResponse<GetFindProfileInfoMemberResDto>> findInfo(
             @Parameter(hidden = true) @AuthenticationPrincipal FoodaPrinciple principle
     ) {
@@ -46,7 +46,7 @@ public class MemberController {
             summary = "사용자 프로필 편집 화면 정보 변경 API",
             description = "<p>로그인한 사용자의 프로필 편집 화면의 정보를 변경합니다.</p>"
     )
-    @PostMapping(value = "/member/profile/settings")
+    @PostMapping(value = "/profile/settings")
     public ResponseEntity<DataResponse<PostModifyInfoMemberResDto>> modifyInfo(
             @Validated @RequestBody PostModifyInfoMemberReqDto postModifyInfoMemberReqDto,
             @Parameter(hidden = true) @AuthenticationPrincipal FoodaPrinciple principle
