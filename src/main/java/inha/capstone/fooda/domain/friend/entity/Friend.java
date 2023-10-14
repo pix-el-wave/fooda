@@ -27,6 +27,13 @@ public class Friend extends BaseEntity {
     @JoinColumn(name = "follower_id")
     private Member follower;
 
+    @Builder
+    public Friend(Long id, Member following, Member follower) {
+        this.id = id;
+        this.following = following;
+        this.follower = follower;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
