@@ -6,10 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class PostFeedReqDto {
-    private MultipartFile img;
+    private List<MultipartFile> img;
     private Boolean open;
     private Menu meal;
 }
