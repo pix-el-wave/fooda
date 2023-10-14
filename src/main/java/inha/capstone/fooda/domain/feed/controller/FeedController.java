@@ -39,9 +39,9 @@ public class FeedController {
             @Parameter(hidden = true) @AuthenticationPrincipal FoodaPrinciple principle,
             @Valid PostFeedReqDto postFeedReqDto
     ) throws IOException {
-        feedService.uploadFeed(principle.getMemberId(), postFeedReqDto.getOpen(), postFeedReqDto.getMeal(), postFeedReqDto.getImg());
+        long id = feedService.uploadFeed(principle.getMemberId(), postFeedReqDto.getOpen(), postFeedReqDto.getMeal(), postFeedReqDto.getImg());
         return new ResponseEntity<>(
-                new DataResponse<>(new PostFeedResDto("ok")),
+                new DataResponse<>(new PostFeedResDto(id)),
                 HttpStatus.OK
         );
     }

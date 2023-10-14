@@ -8,6 +8,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class PostFeedResDto {
-    @Schema(example = "ok", description = "성공")
-    private String ok;
+    @Schema(example = "3", description = "업로드한 피드의 ID")
+    private Long id;
 }
