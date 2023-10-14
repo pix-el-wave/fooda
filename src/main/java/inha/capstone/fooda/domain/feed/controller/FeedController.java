@@ -1,0 +1,48 @@
+package inha.capstone.fooda.domain.feed.controller;
+
+import inha.capstone.fooda.domain.common.response.DataResponse;
+import inha.capstone.fooda.domain.feed.dto.PostFeedReqDto;
+import inha.capstone.fooda.domain.feed.dto.PostFeedResDto;
+import inha.capstone.fooda.domain.feed.service.FeedService;
+import inha.capstone.fooda.domain.friend.dto.GetFindFriendInfoResDto;
+import inha.capstone.fooda.domain.friend.service.FriendService;
+import inha.capstone.fooda.domain.member.dto.MemberDto;
+import inha.capstone.fooda.security.FoodaPrinciple;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+import java.util.List;
+
+@Tag(name = "Feed")
+@RequiredArgsConstructor
+@RequestMapping("/api/feed")
+@RestController
+public class FeedController {
+    private final FeedService feedService;
+
+    @Operation(
+            summary = "음식 기록 API",
+            description = "<p>음식을 기록합니다.</p>"
+    )
+    @PostMapping
+    public ResponseEntity<DataResponse<PostFeedResDto>> feed(
+            @Parameter(hidden = true) @AuthenticationPrincipal FoodaPrinciple principle,
+            @Valid PostFeedReqDto postFeedReqDto
+    ) throws IOException {
+        feedService.uploadFeed(principle.getMemberId(), postFeedReqDto.getOpen(), postFeedReqDto.getMeal(), postFeedReqDto.getImg());
+        return new ResponseEntity<>(
+                new DataResponse<>(new PostFeedResDto("ok")),
+                HttpStatus.OK
+        );
+    }
+}
