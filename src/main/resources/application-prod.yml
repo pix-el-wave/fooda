@@ -15,3 +15,15 @@ spring:
     password: ${FOODA_DB_PASSWORD_PROD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   sql.init.mode: always
+cloud:
+  aws:
+    s3:
+      bucket: fooda-bucket
+    credentials:
+      accessKey: AKIAZAMETMX3VGGFAN7Y
+      secretKey: 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
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
