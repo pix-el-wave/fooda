@@ -19,12 +19,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class FeedService {
     private final FeedRepository feedRepository;
     private final FeedImageService feedImageService;
     private final MemberRepository memberRepository;
 
+    @Transactional
     public long uploadFeed(Long memberId, Boolean open, Menu menu, List<MultipartFile> imgs) throws IOException {
         Feed feed = saveFeed(memberId, open, menu);
         for (MultipartFile img : imgs) {
@@ -33,6 +34,7 @@ public class FeedService {
         return feed.getId();
     }
 
+    @Transactional
     public Feed saveFeed(Long memberId, Boolean open, Menu menu) {
         Feed feed = Feed.builder()
                 .member(memberRepository.getReferenceById(memberId))

@@ -21,12 +21,13 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class FeedImageService {
     private final FeedImageRepository feedImageRepository;
     private final FeedRepository feedRepository;
     private final S3Service s3Service;
 
+    @Transactional
     public void uploadFeedImage(MultipartFile img, Long feedId) throws IOException {
 
         // 이미지 파일인지 검사하는 로직
