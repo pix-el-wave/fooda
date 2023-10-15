@@ -7,9 +7,6 @@ APP_LOG="$PROJECT_ROOT/application.log"
 ERROR_LOG="$PROJECT_ROOT/error.log"
 DEPLOY_LOG="$PROJECT_ROOT/deploy.log"
 
-HOME_ROOT="/home/ubuntu"
-BASHRC_FILE="$HOME_ROOT/.bashrc"
-
 TIME_NOW=$(date +%c)
 
 # build 파일 복사
@@ -18,7 +15,7 @@ cp $PROJECT_ROOT/build/libs/*.jar $JAR_FILE
 
 # 환경변수 등록
 # shellcheck disable=SC1090
-source $BASHRC_FILE
+source ~/.bashrc
 
 # jar 파일 실행
 echo "$TIME_NOW > $JAR_FILE 파일 실행" >>$DEPLOY_LOG
