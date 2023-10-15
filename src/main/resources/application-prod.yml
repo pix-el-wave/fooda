@@ -15,6 +15,10 @@ spring:
     password: ${FOODA_DB_PASSWORD_PROD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   sql.init.mode: always
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 cloud:
   aws:
     s3:
