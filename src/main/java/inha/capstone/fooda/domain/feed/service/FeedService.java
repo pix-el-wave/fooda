@@ -27,21 +27,21 @@ public class FeedService {
 
     @Transactional
     public long uploadFeed(Long memberId, Boolean open, Menu menu, List<MultipartFile> imgs) throws IOException {
-        Feed feed = saveFeed(memberId, open, menu);
+        Long feedId = saveFeed(memberId, open, menu);
         for (MultipartFile img : imgs) {
-            feedImageService.uploadFeedImage(img, feed.getId());
+            feedImageService.uploadFeedImage(img, feedId);
         }
-        return feed.getId();
+        return feedId;
     }
 
     @Transactional
-    public Feed saveFeed(Long memberId, Boolean open, Menu menu) {
+    public Long saveFeed(Long memberId, Boolean open, Menu menu) {
         Feed feed = Feed.builder()
                 .member(memberRepository.getReferenceById(memberId))
                 .open(open)
                 .menu(menu)
                 .build();
         feedRepository.save(feed);
-        return feed;
+        return feed.getId();
     }
 }
