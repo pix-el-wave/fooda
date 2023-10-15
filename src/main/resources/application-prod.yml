@@ -20,8 +20,8 @@ cloud:
     s3:
       bucket: fooda-bucket
     credentials:
-      accessKey: AKIAZAMETMX3VGGFAN7Y
-      secretKey: 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
+      accessKey: ${FOODA_BUCKET_ACCESSKEY_PROD}
+      secretKey: ${FOODA_BUCKET_SECRETKEY_PROD}
     region:
       static: ap-northeast-2
       auto: false
