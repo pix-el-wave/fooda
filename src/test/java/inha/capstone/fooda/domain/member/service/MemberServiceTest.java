@@ -81,4 +81,20 @@ class MemberServiceTest {
     private MemberDto createMemberDtoToModify() {
         return MemberDto.of("멤버1", "member1", "pwd1234!", Gender.MALE, 75, 185, 26, 70, 2500);
     }
+
+    @Test
+    public void 아이디가_주어졌을때_중복_또는_존재_여부를_판별한다() {
+        // given
+        String username_exist = "member1";
+        String username_not_exist = "member2";
+        given(memberRepository.existsByUsername(username_exist)).willReturn(true);
+
+        //when
+        boolean result_exist = memberService.existsMemberByUsername(username_exist);
+        boolean result_not_exist = memberService.existsMemberByUsername(username_not_exist);
+
+        //then
+        assertThat(result_exist).isEqualTo(true);
+        assertThat(result_not_exist).isEqualTo(false);
+    }
 }
