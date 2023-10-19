@@ -28,26 +28,20 @@ public class Member extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String password;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column(nullable = false)
     private Integer weight;
 
-    @Column(nullable = false)
     private Integer height;
 
-    @Column(nullable = false)
     private Integer age;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(nullable = false)
     private Integer targetWeight;
 
-    @Column(nullable = false)
     private Integer targetKcal;
 
     @Builder

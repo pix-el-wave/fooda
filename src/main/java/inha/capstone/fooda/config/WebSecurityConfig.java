@@ -60,6 +60,7 @@ public class WebSecurityConfig {
                 .requestMatchers(AUTH_WHITELIST).permitAll()
                 .requestMatchers(BASE_URL + "/auth/local/new").permitAll()
                 .requestMatchers(BASE_URL + "/auth/local").permitAll()
+                .requestMatchers(BASE_URL + "/auth/login/kakao").permitAll()
                 .anyRequest().authenticated());
         http.addFilterBefore(
                 new JwtAuthenticationFilter(jwtTokenProvider),
