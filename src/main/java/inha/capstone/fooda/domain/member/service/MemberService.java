@@ -42,4 +42,14 @@ public class MemberService {
 
         return MemberDto.from(member);
     }
+
+    /**
+     * 특정 username을 가지는 회원의 존재 여부를 반환한다.
+     *
+     * @param username 조회하려는 유저네임(아이디)
+     * @return 해당 username을 가지는 회원이 존재하면 true, 아니면 false를 반환
+     */
+    public boolean existsMemberByUsername(String username) {
+        return memberRepository.existsByUsername(username);
+    }
 }
