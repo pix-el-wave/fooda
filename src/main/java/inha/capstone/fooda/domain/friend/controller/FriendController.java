@@ -2,6 +2,8 @@ package inha.capstone.fooda.domain.friend.controller;
 
 import inha.capstone.fooda.domain.common.response.DataResponse;
 import inha.capstone.fooda.domain.friend.dto.GetFindFriendInfoResDto;
+import inha.capstone.fooda.domain.friend.dto.PostFollowMemberReqDto;
+import inha.capstone.fooda.domain.friend.dto.PostFollowMemberResDto;
 import inha.capstone.fooda.domain.friend.service.FriendService;
 import inha.capstone.fooda.domain.member.dto.MemberDto;
 import inha.capstone.fooda.security.FoodaPrinciple;
@@ -12,9 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class FriendController {
             summary = "사용자 팔로워, 팔로잉 목록 조회 API",
             description = "<p>로그인한 사용자의 팔로워, 팔로잉 목록을 조회합니다.</p>"
     )
-    @GetMapping(value = "/friend")
+    @GetMapping(value = "/list")
     public ResponseEntity<DataResponse<GetFindFriendInfoResDto>> findFriendInfo(
             @Parameter(hidden = true) @AuthenticationPrincipal FoodaPrinciple principle
     ) {
@@ -43,4 +44,24 @@ public class FriendController {
                 HttpStatus.OK
         );
     }
+
+    @Operation(
+            summary = "팔로우 요청 API",
+            description = "<p>로그인한 사용자가 입력받은 사용자를 팔로우합니다.</p>"
+    )
+    @PostMapping(value = "/follow")
+    public ResponseEntity<DataResponse<PostFollowMemberResDto>> followMember(
+            @Validated @RequestBody PostFollowMemberReqDto request,
+            @Parameter(hidden = true) @AuthenticationPrincipal FoodaPrinciple principle
+    ) {
+        Long savedFriendId = friendService.requestToFollow(principle.getUsername(), request.getUsername());
+
+        PostFollowMemberResDto response = PostFollowMemberResDto.of(savedFriendId);
+
+        return new ResponseEntity<>(
+                new DataResponse<>(response),
+                HttpStatus.OK
+        );
+    }
+
 }
