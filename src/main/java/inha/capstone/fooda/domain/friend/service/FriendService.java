@@ -25,10 +25,10 @@ public class FriendService {
      * @return 조회된 MemberDto 리스트
      */
     public List<MemberDto> findFollowingMembers(String username) {
-        return friendRepository.findByFollowing(findMemberByUsername(username))
+        return friendRepository.findByFollower(findMemberByUsername(username))
                 .stream()
                 .map(friend ->
-                        MemberDto.from(findMemberByUsername(friend.getFollower().getUsername())))
+                        MemberDto.from(findMemberByUsername(friend.getFollowing().getUsername())))
                 .toList();
     }
 
@@ -39,10 +39,10 @@ public class FriendService {
      * @return 조회된 MemberDto 리스트\
      */
     public List<MemberDto> findFollowerMembers(String username) {
-        return friendRepository.findByFollower(findMemberByUsername(username))
+        return friendRepository.findByFollowing(findMemberByUsername(username))
                 .stream()
                 .map(friend ->
-                        MemberDto.from(findMemberByUsername(friend.getFollowing().getUsername())))
+                        MemberDto.from(findMemberByUsername(friend.getFollower().getUsername())))
                 .toList();
     }
 
