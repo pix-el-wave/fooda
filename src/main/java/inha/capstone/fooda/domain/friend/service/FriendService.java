@@ -1,6 +1,7 @@
 package inha.capstone.fooda.domain.friend.service;
 
 import inha.capstone.fooda.domain.friend.entity.Friend;
+import inha.capstone.fooda.domain.friend.exception.FriendNotFoundException;
 import inha.capstone.fooda.domain.friend.repository.FriendRepository;
 import inha.capstone.fooda.domain.member.dto.MemberDto;
 import inha.capstone.fooda.domain.member.entity.Member;
@@ -56,8 +57,8 @@ public class FriendService {
     /**
      * followerUsername가 followingUsername를 팔로우하는 정보를 DB에 저장
      *
-     * @param followerUsername 팔로우 요청을 하는 사용자의 아이디
-     * @param followingUsername  팔로우 요청 대상 사용자의 아이디
+     * @param followerUsername  팔로우 요청을 하는 사용자의 아이디
+     * @param followingUsername 팔로우 요청 대상 사용자의 아이디
      * @return 저장된 팔로우 정보의 PK
      */
     @Transactional
@@ -68,5 +69,22 @@ public class FriendService {
                         .following(findMemberByUsername(followingUsername))
                         .build());
         return savedFriend.getId();
+    }
+
+    /**
+     * followerUsername가 followingUsername를 팔로우하는 정보가 DB에서 삭제된다.
+     *
+     * @param followerUsername  팔로우 취소 요청을 하는 사용자의 아이디
+     * @param followingUsername 팔로우 취소 요청 대상 사용자의 아이디
+     */
+    @Transactional
+    public void requestToUnfollow(String followerUsername, String followingUsername) {
+        Friend friend = friendRepository.findByFollowerAndFollowing(
+                findMemberByUsername(followerUsername),
+                findMemberByUsername(followingUsername)
+        ).orElseThrow(() ->
+                new FriendNotFoundException(followerUsername + "가 " + followingUsername + " 을 팔로우하고 있는 상태가 아닙니다.")
+        );
+        friendRepository.delete(friend);
     }
 }

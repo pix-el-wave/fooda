@@ -75,6 +75,23 @@ public class FriendServiceTest {
         then(friendRepository).should().save(any(Friend.class));
     }
 
+    @Test
+    public void 팔로우하는_사용자와_팔로우당하는_사용자의_아이디가_주어지면_팔로우_정보를_삭제한다() {
+        //given
+        String follower = "member1";
+        String following = "member2";
+        given(memberRepository.findByUsername(any(String.class)))
+                .willReturn(Optional.ofNullable(createMember("멤버1", "member1", 1L)));
+        given(friendRepository.findByFollowerAndFollowing(any(Member.class), any(Member.class)))
+                .willReturn(Optional.ofNullable(createFriend("follower", "following")));
+
+        //when
+        friendService.requestToUnfollow(follower, following);
+
+        //then
+        then(friendRepository).should().delete(any(Friend.class));
+    }
+
     private List<Friend> createFriendList(List<FriendDto> friendDtos) {
         return friendDtos
                 .stream()

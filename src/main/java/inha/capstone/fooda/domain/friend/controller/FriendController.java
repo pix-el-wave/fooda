@@ -1,9 +1,7 @@
 package inha.capstone.fooda.domain.friend.controller;
 
 import inha.capstone.fooda.domain.common.response.DataResponse;
-import inha.capstone.fooda.domain.friend.dto.GetFindFriendInfoResDto;
-import inha.capstone.fooda.domain.friend.dto.PostFollowMemberReqDto;
-import inha.capstone.fooda.domain.friend.dto.PostFollowMemberResDto;
+import inha.capstone.fooda.domain.friend.dto.*;
 import inha.capstone.fooda.domain.friend.service.FriendService;
 import inha.capstone.fooda.domain.member.dto.MemberDto;
 import inha.capstone.fooda.security.FoodaPrinciple;
@@ -60,6 +58,25 @@ public class FriendController {
 
         return new ResponseEntity<>(
                 new DataResponse<>(response),
+                HttpStatus.OK
+        );
+    }
+
+    @Operation(
+            summary = "팔로우 취소 요청 API",
+            description = "<p>로그인한 사용자가 입력받은 사용자를 언팔로우합니다.</p>"
+    )
+    @DeleteMapping(value = "/follow")
+    public ResponseEntity<DataResponse<DeleteUnfollowMemberResDto>> unfollowMember(
+            @Validated @RequestBody DeleteUnfollowMemberReqDto request,
+            @Parameter(hidden = true) @AuthenticationPrincipal FoodaPrinciple principle
+    ) {
+        friendService.requestToUnfollow(principle.getUsername(), request.getUsername());
+
+        DeleteUnfollowMemberResDto result = DeleteUnfollowMemberResDto.of(true);
+
+        return new ResponseEntity<>(
+                new DataResponse<>(result),
                 HttpStatus.OK
         );
     }
