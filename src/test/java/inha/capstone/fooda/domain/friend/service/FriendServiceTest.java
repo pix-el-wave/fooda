@@ -34,7 +34,7 @@ public class FriendServiceTest {
     public void 유저네임이_주어지면_유저의_팔로잉_목록을_조회한다() {
         //given
         String username = "member1";
-        given(friendRepository.findByFollowing(any(Member.class))).willReturn(createFriendList(createFollowingDtoList()));
+        given(friendRepository.findByFollower(any(Member.class))).willReturn(createFriendList(createFollowingDtoList()));
         given(memberRepository.findByUsername(any(String.class))).willReturn(Optional.of(createMember("member1", "member1", 1L)));
 
         //when
@@ -52,10 +52,10 @@ public class FriendServiceTest {
         given(memberRepository.findByUsername(any(String.class))).willReturn(Optional.of(createMember("member1", "member1", 1L)));
 
         //when
-        List<MemberDto> followingMembers = friendService.findFollowingMembers(username);
+        List<MemberDto> followerMembers = friendService.findFollowerMembers(username);
 
         //then
-        Assertions.assertThat(followingMembers.size()).isEqualTo(2);
+        Assertions.assertThat(followerMembers.size()).isEqualTo(2);
     }
 
     private List<Friend> createFriendList(List<FriendDto> friendDtos) {
