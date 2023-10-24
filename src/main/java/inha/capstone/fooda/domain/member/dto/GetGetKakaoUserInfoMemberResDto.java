@@ -1,15 +1,14 @@
 package inha.capstone.fooda.domain.member.dto;
 
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 // KakaoOauthController에서 access token으로 유저 정보를 받아오기 위한 Response Dto
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -26,15 +25,20 @@ public class GetGetKakaoUserInfoMemberResDto {
     public static class KakaoAccount {
         private Boolean profileNeedsAgreement;
         private String nickname;
+        private Boolean emailNeedsAgreement;
+        private String email;
 
-        public static KakaoAccount of(Boolean profileNeedsAgreement, String nickname) {
-            return new KakaoAccount(profileNeedsAgreement, nickname);
+        public static KakaoAccount of(Boolean profileNeedsAgreement, String nickname, Boolean emailNeedsAgreement,
+                                      String email) {
+            return new KakaoAccount(profileNeedsAgreement, nickname, emailNeedsAgreement, email);
         }
 
         public static KakaoAccount from(Map<String, Object> attributes) {
             return new KakaoAccount(
                     Boolean.valueOf(String.valueOf(attributes.get("profile_nickname_needs_agreement"))),
-                    String.valueOf(((Map<String, String>) attributes.get("profile")).get("nickname"))
+                    String.valueOf(((Map<String, String>) attributes.get("profile")).get("nickname")),
+                    Boolean.valueOf(String.valueOf(attributes.get("email_needs_agreement"))),
+                    String.valueOf(attributes.get("email"))
             );
         }
     }
@@ -54,15 +58,12 @@ public class GetGetKakaoUserInfoMemberResDto {
         );
     }
 
-    public MemberDto toMemberDto() {
-        return MemberDto.of(
-                getNickname(),
-                String.valueOf(getId())
-        );
-    }
-
     // Getter
     public String getNickname() {
         return this.getKakaoAccount().getNickname();
+    }
+
+    public String getEmail() {
+        return this.getKakaoAccount().getEmail();
     }
 }

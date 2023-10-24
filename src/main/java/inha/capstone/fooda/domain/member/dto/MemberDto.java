@@ -24,6 +24,7 @@ public class MemberDto {
     private Integer targetKcal;
     @Setter
     private Role role;
+    private String kakaoEmail;
 
     public static MemberDto from(Member member) {
         return new MemberDto(
@@ -37,22 +38,30 @@ public class MemberDto {
                 member.getAge(),
                 member.getTargetWeight(),
                 member.getTargetKcal(),
-                member.getRole()
+                member.getRole(),
+                member.getKakaoEmail()
         );
     }
 
     public static MemberDto of(String name, String username, String password, Gender gender, Integer weight,
                                Integer height, Integer age, Integer targetWeight, Integer targetKcal) {
         return new MemberDto(null, name, username, password, gender, weight, height, age, targetWeight, targetKcal,
-                null);
+                null, null);
+    }
+
+    public static MemberDto of(String name, String username, String password, Gender gender, Integer weight,
+                               Integer height, Integer age, Integer targetWeight, Integer targetKcal,
+                               String kakaoEmail) {
+        return new MemberDto(null, name, username, password, gender, weight, height, age, targetWeight, targetKcal,
+                null, kakaoEmail);
     }
 
     public static MemberDto of(Integer weight, Integer height, Integer age, Integer targetWeight, Integer targetKcal) {
-        return new MemberDto(null, null, null, null, null, weight, height, age, targetWeight, targetKcal, null);
+        return new MemberDto(null, null, null, null, null, weight, height, age, targetWeight, targetKcal, null, null);
     }
 
     public static MemberDto of(String username, String password) {
-        return new MemberDto(null, username, username, password, null, null, null, null, null, null, null);
+        return new MemberDto(null, username, username, password, null, null, null, null, null, null, null, null);
     }
 
     public Member toEntity() {
@@ -68,6 +77,7 @@ public class MemberDto {
                 .targetKcal(getTargetKcal())
                 .age(getAge())
                 .role(getRole())
+                .kakaoEmail(getKakaoEmail())
                 .build();
     }
 

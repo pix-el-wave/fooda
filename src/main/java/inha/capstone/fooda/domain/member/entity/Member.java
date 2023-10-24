@@ -55,9 +55,12 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private Integer targetKcal;
 
+    @Column(nullable = true)
+    private String kakaoEmail; // 카카오 로그인 연동 여부 판별로 사용됨.
+
     @Builder
     public Member(Long id, String name, String username, String password, Gender gender, Integer weight, Integer height,
-                  Integer age, Role role, Integer targetWeight, Integer targetKcal) {
+                  Integer age, Role role, Integer targetWeight, Integer targetKcal, String kakaoEmail) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -69,6 +72,7 @@ public class Member extends BaseEntity {
         this.role = role;
         this.targetWeight = targetWeight;
         this.targetKcal = targetKcal;
+        this.kakaoEmail = kakaoEmail;
     }
 
     /**

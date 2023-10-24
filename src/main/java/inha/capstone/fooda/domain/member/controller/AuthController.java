@@ -86,13 +86,12 @@ public class AuthController {
         GetGetKakaoUserInfoMemberResDto userInfo = kakaoOauthController.getKakaoUserInfo(request.getKakaoAccessToken());
 
         // 회원이 존재하지 않을 경우 회원가입 처리
-        String username = userInfo.getNickname();
-        if (!memberService.existsMemberByUsername(username)) {
-            authService.signUp(request.toDto(username));
+        if (!memberService.existsMemberByKakaoEmail(userInfo.getEmail())) {
+            authService.signUp(request.toDto(userInfo.getNickname(), userInfo.getEmail()));
         }
 
         // jwt 토큰 생성
-        String jwtToken = authService.createToken(username);
+        String jwtToken = authService.createToken(userInfo.getNickname());
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -116,13 +115,11 @@ public class AuthController {
             @Valid @RequestBody PostKakaoSigninMemberReqDto request) throws JsonProcessingException {
         GetGetKakaoUserInfoMemberResDto userInfo = kakaoOauthController.getKakaoUserInfo(request.getKakaoAccessToken());
 
-        String username = userInfo.getNickname();
-
         // 해당 카카오 유저의 회원가입 여부를 설정
-        boolean isUserSignedUp = memberService.existsMemberByUsername(username);
+        boolean isUserSignedUp = memberService.existsMemberByKakaoEmail(userInfo.getEmail());
 
         // jwt 토큰 생성
-        String jwtToken = isUserSignedUp ? authService.createToken(username) : null;
+        String jwtToken = isUserSignedUp ? authService.createToken(userInfo.getNickname()) : null;
 
         return ResponseEntity
                 .status(HttpStatus.OK)

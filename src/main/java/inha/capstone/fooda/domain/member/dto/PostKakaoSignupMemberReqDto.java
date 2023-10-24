@@ -49,7 +49,7 @@ public class PostKakaoSignupMemberReqDto {
         return new PostKakaoSignupMemberReqDto(kakaoAccessToken, null, null, null, null, null, null);
     }
 
-    public MemberDto toDto(String username) {
+    public MemberDto toDto(String username, String kakaoEmail) {
         return MemberDto.of(
                 username,
                 username,
@@ -59,7 +59,8 @@ public class PostKakaoSignupMemberReqDto {
                 getHeight(),
                 getAge(),
                 getTargetWeight(),
-                getTargetKcal()
+                getTargetKcal(),
+                kakaoEmail
         );
     }
 }
