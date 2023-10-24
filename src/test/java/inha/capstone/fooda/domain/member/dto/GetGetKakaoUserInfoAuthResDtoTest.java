@@ -2,6 +2,7 @@ package inha.capstone.fooda.domain.member.dto;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import inha.capstone.fooda.domain.auth.dto.GetGetKakaoUserInfoAuthResDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 @DisplayName("[DTO] 카카오 사용자 정보 가져오기 테스트")
-class GetGetKakaoUserInfoMemberResDtoTest {
+class GetGetKakaoUserInfoAuthResDtoTest {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Test
@@ -34,7 +35,7 @@ class GetGetKakaoUserInfoMemberResDtoTest {
         });
 
         // when
-        GetGetKakaoUserInfoMemberResDto result = GetGetKakaoUserInfoMemberResDto.from(attributes);
+        GetGetKakaoUserInfoAuthResDto result = GetGetKakaoUserInfoAuthResDto.from(attributes);
 
         // then
         assertAll(

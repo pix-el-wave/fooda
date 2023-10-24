@@ -1,4 +1,4 @@
-package inha.capstone.fooda.domain.member.dto;
+package inha.capstone.fooda.domain.auth.dto;
 
 
 import java.time.LocalDateTime;
@@ -14,7 +14,7 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @SuppressWarnings("unchecked")  // TODO: Map -> Object 변환 로직이 있어서 generic type casting 문제를 무시한다. 더 좋은 방법이 있다면 고려할 수 있음.
-public class GetGetKakaoUserInfoMemberResDto {
+public class GetGetKakaoUserInfoAuthResDto {
 
     private Long id;    // Kakao 회원 번호
     private LocalDateTime connectedAt; // 연결 시각
@@ -43,12 +43,12 @@ public class GetGetKakaoUserInfoMemberResDto {
         }
     }
 
-    public static GetGetKakaoUserInfoMemberResDto of(Long id, LocalDateTime connectedAt, KakaoAccount kakaoAccount) {
-        return new GetGetKakaoUserInfoMemberResDto(id, connectedAt, kakaoAccount);
+    public static GetGetKakaoUserInfoAuthResDto of(Long id, LocalDateTime connectedAt, KakaoAccount kakaoAccount) {
+        return new GetGetKakaoUserInfoAuthResDto(id, connectedAt, kakaoAccount);
     }
 
-    public static GetGetKakaoUserInfoMemberResDto from(Map<String, Object> attributes) {
-        return new GetGetKakaoUserInfoMemberResDto(
+    public static GetGetKakaoUserInfoAuthResDto from(Map<String, Object> attributes) {
+        return new GetGetKakaoUserInfoAuthResDto(
                 Long.valueOf(String.valueOf(attributes.get("id"))),
                 ZonedDateTime.parse(
                         String.valueOf(attributes.get("connected_at")),

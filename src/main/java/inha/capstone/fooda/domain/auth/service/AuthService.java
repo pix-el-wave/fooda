@@ -1,9 +1,9 @@
-package inha.capstone.fooda.domain.member.service;
+package inha.capstone.fooda.domain.auth.service;
 
 import inha.capstone.fooda.domain.member.dto.MemberDto;
 import inha.capstone.fooda.domain.member.entity.Member;
 import inha.capstone.fooda.domain.member.entity.Role;
-import inha.capstone.fooda.domain.member.exception.JwtUnauthorizedException;
+import inha.capstone.fooda.domain.auth.exception.JwtUnauthorizedException;
 import inha.capstone.fooda.domain.member.exception.UsernameDuplicateException;
 import inha.capstone.fooda.domain.member.exception.UsernameNotFoundExcpetion;
 import inha.capstone.fooda.domain.member.repository.MemberRepository;

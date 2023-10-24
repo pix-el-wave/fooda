@@ -1,4 +1,4 @@
-package inha.capstone.fooda.domain.member.dto;
+package inha.capstone.fooda.domain.auth.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PostConnectKakaoMemberReqDto {
+public class PostConnectKakaoAuthReqDto {
     @NotBlank
     @Schema(
             example = "ZKvMpru4xZOETYhWeyc2Ved0q4AUdXUFr4KBzh7DtQSKNKVvb4FquEyb",

@@ -1,9 +1,9 @@
-package inha.capstone.fooda.domain.member.controller;
+package inha.capstone.fooda.domain.auth.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import inha.capstone.fooda.domain.member.dto.GetGetKakaoUserInfoMemberResDto;
+import inha.capstone.fooda.domain.auth.dto.GetGetKakaoUserInfoAuthResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class KakaoOauthController {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final HttpRequestController httpRequestController;
 
-    public GetGetKakaoUserInfoMemberResDto getKakaoUserInfo(String accessToken) throws JsonProcessingException {
+    public GetGetKakaoUserInfoAuthResDto getKakaoUserInfo(String accessToken) throws JsonProcessingException {
         String requestUrl = "https://kapi.kakao.com/v2/user/me";
 
         // HTTP header 생성
@@ -33,6 +33,6 @@ public class KakaoOauthController {
         Map<String, Object> attributes = objectMapper.readValue(response.getBody(), new TypeReference<>() {
         });
 
-        return GetGetKakaoUserInfoMemberResDto.from(attributes);
+        return GetGetKakaoUserInfoAuthResDto.from(attributes);
     }
 }

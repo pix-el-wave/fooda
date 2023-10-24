@@ -1,6 +1,6 @@
-package inha.capstone.fooda.domain.member.controller;
+package inha.capstone.fooda.domain.auth.controller;
 
-import inha.capstone.fooda.domain.member.exception.KakaoOAuthUnauthorizedException;
+import inha.capstone.fooda.domain.auth.exception.KakaoOAuthUnauthorizedException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;

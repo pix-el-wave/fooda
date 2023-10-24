@@ -1,5 +1,6 @@
-package inha.capstone.fooda.domain.member.dto;
+package inha.capstone.fooda.domain.auth.dto;
 
+import inha.capstone.fooda.domain.member.dto.MemberDto;
 import inha.capstone.fooda.domain.member.entity.Gender;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public class PostKakaoSignupMemberReqDto {
+public class PostKakaoSignupAuthReqDto {
 
     @NotBlank
     @Schema(
@@ -45,8 +46,8 @@ public class PostKakaoSignupMemberReqDto {
     @Schema(example = "2000", description = "목표칼로리")
     private Integer targetKcal;
 
-    public static PostKakaoSignupMemberReqDto of(String kakaoAccessToken) {
-        return new PostKakaoSignupMemberReqDto(kakaoAccessToken, null, null, null, null, null, null);
+    public static PostKakaoSignupAuthReqDto of(String kakaoAccessToken) {
+        return new PostKakaoSignupAuthReqDto(kakaoAccessToken, null, null, null, null, null, null);
     }
 
     public MemberDto toDto(String username, String kakaoEmail) {
