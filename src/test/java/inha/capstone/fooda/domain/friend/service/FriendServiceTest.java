@@ -20,6 +20,7 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)
 public class FriendServiceTest {
@@ -58,11 +59,51 @@ public class FriendServiceTest {
         Assertions.assertThat(followerMembers.size()).isEqualTo(2);
     }
 
+    @Test
+    public void 팔로우하는_사용자와_팔로우당하는_사용자의_아이디가_주어지면_팔로우_정보를_추가한다() {
+        //given
+        String follower = "member1";
+        String following = "member2";
+        given(memberRepository.findByUsername(any(String.class)))
+                .willReturn(Optional.ofNullable(createMember("멤버1", "member1", 1L)));
+        given(friendRepository.save(any(Friend.class))).willReturn(createFriend("follower", "following"));
+
+        //when
+        friendService.requestToFollow(follower, following);
+
+        //then
+        then(friendRepository).should().save(any(Friend.class));
+    }
+
+    @Test
+    public void 팔로우하는_사용자와_팔로우당하는_사용자의_아이디가_주어지면_팔로우_정보를_삭제한다() {
+        //given
+        String follower = "member1";
+        String following = "member2";
+        given(memberRepository.findByUsername(any(String.class)))
+                .willReturn(Optional.ofNullable(createMember("멤버1", "member1", 1L)));
+        given(friendRepository.findByFollowerAndFollowing(any(Member.class), any(Member.class)))
+                .willReturn(Optional.ofNullable(createFriend("follower", "following")));
+
+        //when
+        friendService.requestToUnfollow(follower, following);
+
+        //then
+        then(friendRepository).should().delete(any(Friend.class));
+    }
+
     private List<Friend> createFriendList(List<FriendDto> friendDtos) {
         return friendDtos
                 .stream()
                 .map(FriendDto::toEntity)
                 .toList();
+    }
+
+    private Friend createFriend(String follower, String following) {
+        return Friend.builder()
+                .follower(createMember(follower, follower, 1L))
+                .following(createMember(following, following, 2L))
+                .build();
     }
 
     private List<FriendDto> createFollowingDtoList() {
