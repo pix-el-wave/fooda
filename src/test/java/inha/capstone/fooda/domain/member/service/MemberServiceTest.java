@@ -1,9 +1,14 @@
 package inha.capstone.fooda.domain.member.service;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.BDDMockito.given;
+
 import inha.capstone.fooda.domain.member.dto.MemberDto;
 import inha.capstone.fooda.domain.member.entity.Gender;
 import inha.capstone.fooda.domain.member.entity.Member;
 import inha.capstone.fooda.domain.member.repository.MemberRepository;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,12 +16,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.util.ReflectionTestUtils;
-
-import java.util.Optional;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 class MemberServiceTest {
@@ -31,7 +30,8 @@ class MemberServiceTest {
         //given
         String username = "member1";
         MemberDto expected = MemberDto.from(createMember());
-        given(memberRepository.findByUsername(username)).willReturn(Optional.of(createMember())); // MemberDto가 아닌 실제 Member 객체 생성
+        given(memberRepository.findByUsername(username)).willReturn(
+                Optional.of(createMember())); // MemberDto가 아닌 실제 Member 객체 생성
 
         //when
         MemberDto result = memberService.findMemberByUsername(username);
@@ -53,13 +53,27 @@ class MemberServiceTest {
         String username = "member1";
         MemberDto expected = MemberDto.from(createMemberToModify());
         Member existingMember = createMember();
-        given(memberRepository.findByUsername(username)).willReturn(Optional.of(existingMember)); // MemberDto가 아닌 실제 Member 객체 생성
+        given(memberRepository.findByUsername(username)).willReturn(
+                Optional.of(existingMember)); // MemberDto가 아닌 실제 Member 객체 생성
 
         //when
         MemberDto result = memberService.modifyMemberByUsername(username, expected);
 
         //then
         assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    void 카카오_이메일이_주어지면_해당_유저의_존재여부를_반환한다() {
+        //given
+        String kakaoEmail = "test@test.com";
+        given(memberRepository.existsByKakaoEmail(kakaoEmail)).willReturn(true);
+
+        //when
+        Boolean result = memberService.existsMemberByKakaoEmail(kakaoEmail);
+
+        //then
+        assertThat(result).isEqualTo(true);
     }
 
     private Member createMember() {
