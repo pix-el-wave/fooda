@@ -41,17 +41,18 @@ public class MemberDto {
         );
     }
 
-    // TODO 카카오 회원가입 시 호출되며 실명 접근 권한이 없어 이름 -> 닉네임으로 대체함. 추후 다른 개선방안이 있는지 확인 필요
-    public static MemberDto of(String username, String password) {
-        return new MemberDto(null, username, username, password, null, null, null, null, null, null, null);
-    }
-
-    public static MemberDto of(String name, String username, String password, Gender gender, Integer weight, Integer height, Integer age, Integer targetWeight, Integer targetKcal) {
-        return new MemberDto(null, name, username, password, gender, weight, height, age, targetWeight, targetKcal, null);
+    public static MemberDto of(String name, String username, String password, Gender gender, Integer weight,
+                               Integer height, Integer age, Integer targetWeight, Integer targetKcal) {
+        return new MemberDto(null, name, username, password, gender, weight, height, age, targetWeight, targetKcal,
+                null);
     }
 
     public static MemberDto of(Integer weight, Integer height, Integer age, Integer targetWeight, Integer targetKcal) {
         return new MemberDto(null, null, null, null, null, weight, height, age, targetWeight, targetKcal, null);
+    }
+
+    public static MemberDto of(String username, String password) {
+        return new MemberDto(null, username, username, password, null, null, null, null, null, null, null);
     }
 
     public Member toEntity() {
@@ -72,8 +73,12 @@ public class MemberDto {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MemberDto)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof MemberDto)) {
+            return false;
+        }
         MemberDto that = (MemberDto) o;
         return this.getId() != null && this.getId().equals(that.getId());
     }

@@ -2,13 +2,18 @@ package inha.capstone.fooda.domain.member.entity;
 
 import inha.capstone.fooda.domain.common.entity.BaseEntity;
 import inha.capstone.fooda.domain.member.dto.MemberDto;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -28,24 +33,31 @@ public class Member extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String password;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @Column(nullable = false)
     private Integer weight;
 
+    @Column(nullable = false)
     private Integer height;
 
+    @Column(nullable = false)
     private Integer age;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(nullable = false)
     private Integer targetWeight;
 
+    @Column(nullable = false)
     private Integer targetKcal;
 
     @Builder
-    public Member(Long id, String name, String username, String password, Gender gender, Integer weight, Integer height, Integer age, Role role, Integer targetWeight, Integer targetKcal) {
+    public Member(Long id, String name, String username, String password, Gender gender, Integer weight, Integer height,
+                  Integer age, Role role, Integer targetWeight, Integer targetKcal) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -74,8 +86,12 @@ public class Member extends BaseEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Member)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Member)) {
+            return false;
+        }
         Member that = (Member) o;
         return this.getId() != null && this.getId().equals(that.getId());
     }
