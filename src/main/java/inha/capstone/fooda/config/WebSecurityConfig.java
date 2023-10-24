@@ -6,6 +6,8 @@ import inha.capstone.fooda.domain.common.response.ErrorResponse;
 import inha.capstone.fooda.security.JwtAuthenticationFilter;
 import inha.capstone.fooda.security.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Collections;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -21,9 +23,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-
-import java.util.Collections;
-import java.util.List;
 
 @Slf4j
 @Configuration
@@ -60,7 +59,8 @@ public class WebSecurityConfig {
                 .requestMatchers(AUTH_WHITELIST).permitAll()
                 .requestMatchers(BASE_URL + "/auth/local/new").permitAll()
                 .requestMatchers(BASE_URL + "/auth/local").permitAll()
-                .requestMatchers(BASE_URL + "/auth/login/kakao").permitAll()
+                .requestMatchers(BASE_URL + "/auth/kakao").permitAll()
+                .requestMatchers(BASE_URL + "/auth/kakao/new").permitAll()
                 .anyRequest().authenticated());
         http.addFilterBefore(
                 new JwtAuthenticationFilter(jwtTokenProvider),
@@ -70,7 +70,8 @@ public class WebSecurityConfig {
         http.exceptionHandling((exception) -> exception
                 .accessDeniedHandler((request, response, accessDeniedException) -> {
                     // 권한 문제가 발생했을 때 이 부분을 호출한다.
-                    log.error("SecurityConfig.SecurityFilterChain.accessDeniedHandler() ex={}", String.valueOf(accessDeniedException));
+                    log.error("SecurityConfig.SecurityFilterChain.accessDeniedHandler() ex={}",
+                            String.valueOf(accessDeniedException));
 
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                     response.setCharacterEncoding("utf-8");
@@ -83,7 +84,8 @@ public class WebSecurityConfig {
                     response.getWriter().write(new ObjectMapper().writeValueAsString(errorResponse));
                 }).authenticationEntryPoint((request, response, authException) -> {
                     // 인증문제가 발생했을 때 이 부분을 호출한다.
-                    log.error("SecurityConfig.SecurityFilterChain.authenticationEntryPoint() ex={}", String.valueOf(authException));
+                    log.error("SecurityConfig.SecurityFilterChain.authenticationEntryPoint() ex={}",
+                            String.valueOf(authException));
 
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     response.setCharacterEncoding("utf-8");
@@ -95,7 +97,6 @@ public class WebSecurityConfig {
 
                     response.getWriter().write(new ObjectMapper().writeValueAsString(errorResponse));
                 }));
-
 
         return http.build();
     }
