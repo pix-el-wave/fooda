@@ -2,8 +2,11 @@ package inha.capstone.fooda.domain.feed_image.entity;
 
 import inha.capstone.fooda.domain.common.entity.BaseEntity;
 import inha.capstone.fooda.domain.feed.entity.Feed;
+import inha.capstone.fooda.domain.feed.entity.Menu;
+import inha.capstone.fooda.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -42,5 +45,14 @@ public class FeedImage extends BaseEntity {
     @Override
     public int hashCode() {
         return Objects.hash(this.getId());
+    }
+
+    @Builder
+    public FeedImage(Long id, Feed feed, String fileName, String fileNameStored, String url) {
+        this.id = id;
+        this.feed = feed;
+        this.fileName = fileName;
+        this.fileNameStored = fileNameStored;
+        this.url = url;
     }
 }
