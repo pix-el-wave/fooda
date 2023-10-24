@@ -14,6 +14,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -56,6 +57,7 @@ public class Member extends BaseEntity {
     private Integer targetKcal;
 
     @Column(nullable = true)
+    @Setter // 애플리케이션 회원가입 후 카카오 로그인 연동을 위해 필요
     private String kakaoEmail; // 카카오 로그인 연동 여부 판별로 사용됨.
 
     @Builder

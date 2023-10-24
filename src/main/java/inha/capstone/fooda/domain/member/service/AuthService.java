@@ -50,4 +50,20 @@ public class AuthService {
     public String createToken(String username) {
         return jwtTokenProvider.createToken(username);
     }
+
+    /**
+     * username에 해당하는 유저의 카카오 계정을 연동한다.
+     *
+     * @param username   유저의 닉네임(아이디)
+     * @param kakaoEmail 유저의 카카오 이메일
+     */
+    @Transactional
+    public void connectWithKakao(String username, String kakaoEmail) {
+        // 해당 아이디를 가진 멤버 조회
+        Member member = memberRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundExcpetion(username));
+
+        // 해당 멤버의 카카오 이메일 설정
+        member.setKakaoEmail(kakaoEmail);
+    }
 }
