@@ -4,6 +4,7 @@ import inha.capstone.fooda.domain.common.entity.BaseEntity;
 import inha.capstone.fooda.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -40,5 +41,13 @@ public class Feed extends BaseEntity {
     @Override
     public int hashCode() {
         return Objects.hash(this.getId());
+    }
+
+    @Builder
+    public Feed(Long id, Member member, Boolean open, Menu menu) {
+        this.id = id;
+        this.member = member;
+        this.open = open;
+        this.menu = menu;
     }
 }

@@ -10,22 +10,22 @@ import lombok.Getter;
 @Getter
 public class FriendDto {
     private Long id;
-    private Member following;
     private Member follower;
+    private Member following;
 
-    public static FriendDto from(Friend friend){
+    public static FriendDto from(Friend friend) {
         return new FriendDto(
                 friend.getId(),
-                friend.getFollowing(),
-                friend.getFollower()
+                friend.getFollower(),
+                friend.getFollowing()
         );
     }
 
-    public static FriendDto of(Member following, Member follower){
-        return new FriendDto(null, following, follower);
+    public static FriendDto of(Member follower, Member following) {
+        return new FriendDto(null, follower, following);
     }
 
-    public Friend toEntity(){
+    public Friend toEntity() {
         return Friend.builder()
                 .id(getId())
                 .follower(getFollower())

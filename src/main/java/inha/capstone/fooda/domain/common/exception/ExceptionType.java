@@ -1,5 +1,6 @@
 package inha.capstone.fooda.domain.common.exception;
 
+import inha.capstone.fooda.domain.feed_image.exception.NotImageFileExcpetion;
 import inha.capstone.fooda.domain.member.exception.UsernameDuplicateException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public enum ExceptionType {
     BAD_REQUEST_EXCEPTION(1, "요청 데이터가 잘못되었습니다.", null),
     ACCESS_DENIED_EXCEPTION(2, "권한이 유효하지 않습니다.", null),
     AUTHENTICATION_EXCEPTION(3, "인증 과정에서 문제가 발생했습니다.", null),
+    NOT_IMAGE_EXCEPTION(4, "이미지 파일이 아닙니다.", NotImageFileExcpetion.class),
 
     // Auth
     USERNAME_DUPLICATE_EXEPTION(1000, "아이디(유저네임)이 중복됩니다.", UsernameDuplicateException.class);
