@@ -5,12 +5,7 @@ import inha.capstone.fooda.domain.feed.dto.PostFeedReqDto;
 import inha.capstone.fooda.domain.feed.dto.PostFeedResDto;
 import inha.capstone.fooda.domain.feed.dto.UploadFeedDto;
 import inha.capstone.fooda.domain.feed.service.FeedService;
-import inha.capstone.fooda.domain.friend.dto.GetFindFriendInfoResDto;
-import inha.capstone.fooda.domain.friend.service.FriendService;
-import inha.capstone.fooda.domain.member.dto.MemberDto;
 import inha.capstone.fooda.security.FoodaPrinciple;
-import inha.capstone.fooda.utils.AIServerBaseResDto;
-import inha.capstone.fooda.utils.FoodListResDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,9 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @Tag(name = "Feed")
 @RequiredArgsConstructor
