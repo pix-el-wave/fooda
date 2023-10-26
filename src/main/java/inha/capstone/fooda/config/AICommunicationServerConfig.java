@@ -14,7 +14,7 @@ public class AICommunicationServerConfig {
     private String AICommunicationServerUrl;
 
     @Bean
-    public WebClient llmCommunicationServerWebClient() {
+    public WebClient aiCommunicationServerWebClient() {
         return WebClient.builder()
                 .baseUrl(AICommunicationServerUrl)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
