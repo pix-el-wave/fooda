@@ -1,4 +1,4 @@
-package inha.capstone.fooda.domain.member.service;
+package inha.capstone.fooda.domain.auth.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
