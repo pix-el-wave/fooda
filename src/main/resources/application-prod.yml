@@ -31,3 +31,6 @@ cloud:
       auto: false
     stack:
       auto: false
+ai:
+  python:
+    url: ${FOODA_AI_URL_PROD}
