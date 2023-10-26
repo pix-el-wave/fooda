@@ -28,7 +28,7 @@ public class FeedImageService {
     private final S3Service s3Service;
 
     @Transactional
-    public void uploadFeedImage(MultipartFile img, Long feedId) throws IOException {
+    public String uploadFeedImage(MultipartFile img, Long feedId) throws IOException {
 
         // 이미지 파일인지 검사하는 로직
         Image image = ImageIO.read(img.getInputStream());
@@ -43,5 +43,6 @@ public class FeedImageService {
                 .url(url)
                 .build();
         feedImageRepository.save(feedImage);
+        return url;
     }
 }
