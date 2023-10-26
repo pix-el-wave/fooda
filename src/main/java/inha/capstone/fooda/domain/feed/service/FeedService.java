@@ -1,5 +1,6 @@
 package inha.capstone.fooda.domain.feed.service;
 
+import inha.capstone.fooda.domain.feed.dto.UploadFeedDto;
 import inha.capstone.fooda.domain.feed.entity.Feed;
 import inha.capstone.fooda.domain.feed.entity.Menu;
 import inha.capstone.fooda.domain.feed.repository.FeedRepository;
@@ -28,14 +29,14 @@ public class FeedService {
     private final AICommunicationUtils aiCommunicationUtils;
 
     @Transactional
-    public List<FoodListResDto> uploadFeed(Long memberId, Boolean open, Menu menu, List<MultipartFile> imgs) throws IOException {
+    public UploadFeedDto uploadFeed(Long memberId, Boolean open, Menu menu, List<MultipartFile> imgs) throws IOException {
         Long feedId = saveFeed(memberId, open, menu);
-        List<FoodListResDto> all = new ArrayList<>();
+        List<FoodListResDto> foodList = new ArrayList<>();
         for (MultipartFile img : imgs) {
             String url = feedImageService.uploadFeedImage(img, feedId);
-            all.addAll(aiCommunicationUtils.requestImageList(new FoodListReqDto(url)).getData());
+            foodList.addAll(aiCommunicationUtils.requestImageList(new FoodListReqDto(url)).getData());
         }
-        return all;
+        return new UploadFeedDto(feedId, foodList);
     }
 
     @Transactional

@@ -3,6 +3,7 @@ package inha.capstone.fooda.domain.feed.controller;
 import inha.capstone.fooda.domain.common.response.DataResponse;
 import inha.capstone.fooda.domain.feed.dto.PostFeedReqDto;
 import inha.capstone.fooda.domain.feed.dto.PostFeedResDto;
+import inha.capstone.fooda.domain.feed.dto.UploadFeedDto;
 import inha.capstone.fooda.domain.feed.service.FeedService;
 import inha.capstone.fooda.domain.friend.dto.GetFindFriendInfoResDto;
 import inha.capstone.fooda.domain.friend.service.FriendService;
@@ -40,13 +41,13 @@ public class FeedController {
             description = "<p>음식을 기록합니다.</p>"
     )
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<DataResponse<List<FoodListResDto>>> feed(
+    public ResponseEntity<DataResponse<PostFeedResDto>> feed(
             @Parameter(hidden = true) @AuthenticationPrincipal FoodaPrinciple principle,
             @Valid PostFeedReqDto postFeedReqDto
     ) throws IOException {
-        List<FoodListResDto> all = feedService.uploadFeed(principle.getMemberId(), postFeedReqDto.getOpen(), postFeedReqDto.getMeal(), postFeedReqDto.getImg());
+        UploadFeedDto uploadFeedDto = feedService.uploadFeed(principle.getMemberId(), postFeedReqDto.getOpen(), postFeedReqDto.getMeal(), postFeedReqDto.getImg());
         return new ResponseEntity<>(
-                new DataResponse<>(all),
+                new DataResponse<>(new PostFeedResDto(uploadFeedDto)),
                 HttpStatus.OK
         );
     }
