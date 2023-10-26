@@ -3,10 +3,8 @@ package inha.capstone.fooda.domain.feed.controller;
 import inha.capstone.fooda.domain.common.response.DataResponse;
 import inha.capstone.fooda.domain.feed.dto.PostFeedReqDto;
 import inha.capstone.fooda.domain.feed.dto.PostFeedResDto;
+import inha.capstone.fooda.domain.feed.dto.UploadFeedDto;
 import inha.capstone.fooda.domain.feed.service.FeedService;
-import inha.capstone.fooda.domain.friend.dto.GetFindFriendInfoResDto;
-import inha.capstone.fooda.domain.friend.service.FriendService;
-import inha.capstone.fooda.domain.member.dto.MemberDto;
 import inha.capstone.fooda.security.FoodaPrinciple;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.List;
 
 @Tag(name = "Feed")
 @RequiredArgsConstructor
@@ -40,9 +37,9 @@ public class FeedController {
             @Parameter(hidden = true) @AuthenticationPrincipal FoodaPrinciple principle,
             @Valid PostFeedReqDto postFeedReqDto
     ) throws IOException {
-        long id = feedService.uploadFeed(principle.getMemberId(), postFeedReqDto.getOpen(), postFeedReqDto.getMeal(), postFeedReqDto.getImg());
+        UploadFeedDto uploadFeedDto = feedService.uploadFeed(principle.getMemberId(), postFeedReqDto.getOpen(), postFeedReqDto.getMeal(), postFeedReqDto.getImg());
         return new ResponseEntity<>(
-                new DataResponse<>(new PostFeedResDto(id)),
+                new DataResponse<>(new PostFeedResDto(uploadFeedDto)),
                 HttpStatus.OK
         );
     }
