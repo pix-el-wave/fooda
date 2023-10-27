@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -11,10 +13,10 @@ public class FoodListResDto {
     private Integer no;
     private String name;
     private Integer size;
-    private Float energy;
-    private Float protein;
-    private Float province;
-    private Float carbohydrate;
-    private Float calcium;
-    private Float salt;
+    private BigDecimal energy;
+    private BigDecimal protein;
+    private BigDecimal fat;
+    private BigDecimal carbs;
+    private BigDecimal calcium;
+    private BigDecimal salt;
 }
