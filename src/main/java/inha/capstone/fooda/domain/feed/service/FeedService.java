@@ -5,6 +5,9 @@ import inha.capstone.fooda.domain.feed.entity.Feed;
 import inha.capstone.fooda.domain.feed.entity.Menu;
 import inha.capstone.fooda.domain.feed.repository.FeedRepository;
 import inha.capstone.fooda.domain.feed_image.service.FeedImageService;
+import inha.capstone.fooda.domain.food.entity.Food;
+import inha.capstone.fooda.domain.food.repository.FoodRepository;
+import inha.capstone.fooda.domain.food.service.FoodService;
 import inha.capstone.fooda.domain.member.repository.MemberRepository;
 import inha.capstone.fooda.utils.AICommunicationUtils;
 import inha.capstone.fooda.utils.FoodListReqDto;
@@ -25,6 +28,8 @@ public class FeedService {
     private final FeedRepository feedRepository;
     private final FeedImageService feedImageService;
     private final MemberRepository memberRepository;
+    private final FoodRepository foodRepository;
+    private final FoodService foodService;
 
     private final AICommunicationUtils aiCommunicationUtils;
 
