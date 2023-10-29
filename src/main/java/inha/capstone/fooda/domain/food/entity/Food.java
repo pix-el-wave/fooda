@@ -43,6 +43,12 @@ public class Food extends BaseEntity {
     @Column(nullable = false)
     private BigDecimal fat;
 
+    @Column(nullable = false)
+    private BigDecimal calcium;
+
+    @Column(nullable = false)
+    private BigDecimal salt;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -57,7 +63,7 @@ public class Food extends BaseEntity {
     }
 
     @Builder
-    public Food(Long id, Feed feed, String foodName, BigDecimal energy, BigDecimal carbs, BigDecimal protein, BigDecimal fat) {
+    public Food(Long id, Feed feed, String foodName, BigDecimal energy, BigDecimal carbs, BigDecimal protein, BigDecimal fat, BigDecimal calcium, BigDecimal salt) {
         this.id = id;
         this.feed = feed;
         this.foodName = foodName;
@@ -65,6 +71,8 @@ public class Food extends BaseEntity {
         this.carbs = carbs;
         this.protein = protein;
         this.fat = fat;
+        this.calcium = calcium;
+        this.salt = salt;
     }
 
     public static Food from(Feed feed, FoodListResDto foodListResDto) {
@@ -75,6 +83,8 @@ public class Food extends BaseEntity {
                 .carbs(foodListResDto.getCarbs())
                 .protein(foodListResDto.getProtein())
                 .fat(foodListResDto.getFat())
+                .calcium(foodListResDto.getCalcium())
+                .salt(foodListResDto.getSalt())
                 .build();
     }
 }
