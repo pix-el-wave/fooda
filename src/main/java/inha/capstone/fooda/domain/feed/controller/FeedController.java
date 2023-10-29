@@ -13,10 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -56,6 +53,21 @@ public class FeedController {
         List<FeedDto> feedDtoList = feedService.selectFeed(principle.getMemberId(), postSelectFeedReqDto.getStart(), postSelectFeedReqDto.getEnd());
         return new ResponseEntity<>(
                 new DataResponse<>(new PostSelectFeedResDto(feedDtoList)),
+                HttpStatus.OK
+        );
+    }
+
+    @Operation(
+            summary = "피드 조회 API",
+            description = "<p>피드을 조회합니다.</p>"
+    )
+    @GetMapping("/list/following")
+    public ResponseEntity<DataResponse<GetSelectFeedFollowingResDto>> selectFeedFollowing(
+            @Parameter(hidden = true) @AuthenticationPrincipal FoodaPrinciple principle
+    ) throws IOException {
+        List<FeedDto> feedDtoList = feedService.selectFeedByFollowing(principle.getMemberId());
+        return new ResponseEntity<>(
+                new DataResponse<>(new GetSelectFeedFollowingResDto(feedDtoList)),
                 HttpStatus.OK
         );
     }

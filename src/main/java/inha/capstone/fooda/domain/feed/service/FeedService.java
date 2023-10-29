@@ -63,4 +63,11 @@ public class FeedService {
                 .map(FeedDto::from)
                 .toList();
     }
+
+    public List<FeedDto> selectFeedByFollowing(Long memberId) {
+        List<Feed> feedList = feedRepository.findFeedsByFollowing(memberId);
+        return feedList.stream()
+                .map(FeedDto::from)
+                .toList();
+    }
 }
