@@ -12,6 +12,6 @@ import java.util.List;
 
 public interface FeedRepository extends JpaRepository<Feed, Long> {
 
-    @Query("SELECT DISTINCT t FROM Feed t LEFT OUTER JOIN FETCH t.foods WHERE t.createdAt BETWEEN :startDate AND :endDate AND t.member.id = :memberId")
+    @Query("SELECT DISTINCT t FROM Feed t LEFT OUTER JOIN FETCH t.foods LEFT OUTER JOIN FETCH t.member WHERE t.createdAt BETWEEN :startDate AND :endDate AND t.member.id = :memberId")
     public List<Feed> findAllByCreatedAtBetweenAndMemberIdUsingFetchJoin(LocalDateTime startDate, LocalDateTime endDate, Long memberId);
 }
