@@ -1,6 +1,7 @@
 package inha.capstone.fooda.domain.feed.entity;
 
 import inha.capstone.fooda.domain.common.entity.BaseEntity;
+import inha.capstone.fooda.domain.food.entity.Food;
 import inha.capstone.fooda.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -8,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -29,6 +31,9 @@ public class Feed extends BaseEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Menu menu;
+
+    @OneToMany(mappedBy = "feed", fetch = FetchType.LAZY)
+    private List<Food> foods;
 
     @Override
     public boolean equals(Object o) {
