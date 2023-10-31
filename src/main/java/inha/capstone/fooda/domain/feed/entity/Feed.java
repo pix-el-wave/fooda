@@ -1,6 +1,8 @@
 package inha.capstone.fooda.domain.feed.entity;
 
 import inha.capstone.fooda.domain.common.entity.BaseEntity;
+import inha.capstone.fooda.domain.feed_image.dto.FeedImageDto;
+import inha.capstone.fooda.domain.feed_image.entity.FeedImage;
 import inha.capstone.fooda.domain.food.entity.Food;
 import inha.capstone.fooda.domain.member.entity.Member;
 import jakarta.persistence.*;
@@ -11,6 +13,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -34,6 +37,7 @@ public class Feed extends BaseEntity {
 
     @OneToMany(mappedBy = "feed", fetch = FetchType.LAZY)
     private List<Food> foods;
+    private Set<Food> foods;
 
     @Override
     public boolean equals(Object o) {
