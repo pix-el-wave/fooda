@@ -58,10 +58,11 @@ public class Feed extends BaseEntity {
     }
 
     @Builder
-    public Feed(Long id, Member member, Boolean open, Menu menu) {
+    public Feed(Long id, Member member, Boolean open, Menu menu, Long likeCount) {
         this.id = id;
         this.member = member;
         this.open = open;
         this.menu = menu;
+        this.likeCount = likeCount;
     }
 }
