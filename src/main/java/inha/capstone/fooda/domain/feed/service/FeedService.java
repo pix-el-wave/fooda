@@ -52,6 +52,7 @@ public class FeedService {
                 .member(memberRepository.getReferenceById(memberId))
                 .open(open)
                 .menu(menu)
+                .likeCount(0L)
                 .build();
         feedRepository.save(feed);
         return feed.getId();
