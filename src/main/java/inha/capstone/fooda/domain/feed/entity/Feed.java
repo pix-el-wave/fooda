@@ -36,8 +36,10 @@ public class Feed extends BaseEntity {
     private Menu menu;
 
     @OneToMany(mappedBy = "feed", fetch = FetchType.LAZY)
-    private List<Food> foods;
     private Set<Food> foods;
+
+    @OneToMany(mappedBy = "feed", fetch = FetchType.LAZY)
+    private Set<FeedImage> feedImages;
 
     @Override
     public boolean equals(Object o) {
