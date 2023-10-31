@@ -35,6 +35,9 @@ public class Feed extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Menu menu;
 
+    @Column(nullable = false)
+    private Long likeCount;
+
     @OneToMany(mappedBy = "feed", fetch = FetchType.LAZY)
     private Set<Food> foods;
 
