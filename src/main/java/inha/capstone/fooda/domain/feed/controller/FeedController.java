@@ -1,9 +1,7 @@
 package inha.capstone.fooda.domain.feed.controller;
 
 import inha.capstone.fooda.domain.common.response.DataResponse;
-import inha.capstone.fooda.domain.feed.dto.PostFeedReqDto;
-import inha.capstone.fooda.domain.feed.dto.PostFeedResDto;
-import inha.capstone.fooda.domain.feed.dto.UploadFeedDto;
+import inha.capstone.fooda.domain.feed.dto.*;
 import inha.capstone.fooda.domain.feed.service.FeedService;
 import inha.capstone.fooda.security.FoodaPrinciple;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,10 +14,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.List;
 
 @Tag(name = "Feed")
 @RequiredArgsConstructor
@@ -38,8 +38,26 @@ public class FeedController {
             @Valid PostFeedReqDto postFeedReqDto
     ) throws IOException {
         UploadFeedDto uploadFeedDto = feedService.uploadFeed(principle.getMemberId(), postFeedReqDto.getOpen(), postFeedReqDto.getMeal(), postFeedReqDto.getImg());
+
         return new ResponseEntity<>(
                 new DataResponse<>(new PostFeedResDto(uploadFeedDto)),
+                HttpStatus.OK
+        );
+    }
+
+    @Operation(
+            summary = "음식 조회 API",
+            description = "<p>음식을 조회합니다.</p>"
+    )
+    @PostMapping("/list")
+    public ResponseEntity<DataResponse<PostSelectFeedResDto>> selectFeed(
+            @Parameter(hidden = true) @AuthenticationPrincipal FoodaPrinciple principle,
+            @Valid @RequestBody PostSelectFeedReqDto postSelectFeedReqDto
+    ) throws IOException {
+        List<FeedDto> feedDtoList = feedService.selectFeed(principle.getMemberId(), postSelectFeedReqDto.getStart(), postSelectFeedReqDto.getEnd());
+
+        return new ResponseEntity<>(
+                new DataResponse<>(new PostSelectFeedResDto(feedDtoList)),
                 HttpStatus.OK
         );
     }

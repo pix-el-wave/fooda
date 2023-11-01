@@ -37,6 +37,7 @@ public class FoodController {
             @Valid @RequestBody PostFoodReqDto postFoodReqDto
     ) throws IOException {
         foodService.uploadFood(postFoodReqDto.getFeedId(), postFoodReqDto.getFoodList());
+
         return new ResponseEntity<>(
                 new DataResponse<>(new PostFoodResDto(true)),
                 HttpStatus.OK
