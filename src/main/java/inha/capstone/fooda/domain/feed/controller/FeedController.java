@@ -38,6 +38,7 @@ public class FeedController {
             @Valid PostFeedReqDto postFeedReqDto
     ) throws IOException {
         UploadFeedDto uploadFeedDto = feedService.uploadFeed(principle.getMemberId(), postFeedReqDto.getOpen(), postFeedReqDto.getMeal(), postFeedReqDto.getImg());
+
         return new ResponseEntity<>(
                 new DataResponse<>(new PostFeedResDto(uploadFeedDto)),
                 HttpStatus.OK
@@ -54,6 +55,7 @@ public class FeedController {
             @Valid @RequestBody PostSelectFeedReqDto postSelectFeedReqDto
     ) throws IOException {
         List<FeedDto> feedDtoList = feedService.selectFeed(principle.getMemberId(), postSelectFeedReqDto.getStart(), postSelectFeedReqDto.getEnd());
+
         return new ResponseEntity<>(
                 new DataResponse<>(new PostSelectFeedResDto(feedDtoList)),
                 HttpStatus.OK
