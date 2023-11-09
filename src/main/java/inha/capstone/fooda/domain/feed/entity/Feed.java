@@ -1,6 +1,9 @@
 package inha.capstone.fooda.domain.feed.entity;
 
 import inha.capstone.fooda.domain.common.entity.BaseEntity;
+import inha.capstone.fooda.domain.feed_image.dto.FeedImageDto;
+import inha.capstone.fooda.domain.feed_image.entity.FeedImage;
+import inha.capstone.fooda.domain.food.entity.Food;
 import inha.capstone.fooda.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -8,7 +11,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -30,6 +35,15 @@ public class Feed extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Menu menu;
 
+    @Column(nullable = false)
+    private Long likeCount;
+
+    @OneToMany(mappedBy = "feed", fetch = FetchType.LAZY)
+    private Set<Food> foods;
+
+    @OneToMany(mappedBy = "feed", fetch = FetchType.LAZY)
+    private Set<FeedImage> feedImages;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,10 +58,11 @@ public class Feed extends BaseEntity {
     }
 
     @Builder
-    public Feed(Long id, Member member, Boolean open, Menu menu) {
+    public Feed(Long id, Member member, Boolean open, Menu menu, Long likeCount) {
         this.id = id;
         this.member = member;
         this.open = open;
         this.menu = menu;
+        this.likeCount = likeCount;
     }
 }

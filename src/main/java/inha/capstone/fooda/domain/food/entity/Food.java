@@ -1,6 +1,10 @@
-package inha.capstone.fooda.domain.food;
+package inha.capstone.fooda.domain.food.entity;
 
 import inha.capstone.fooda.domain.common.entity.BaseEntity;
+import inha.capstone.fooda.domain.feed.entity.Feed;
+import inha.capstone.fooda.domain.member.dto.GetFindProfileInfoMemberResDto;
+import inha.capstone.fooda.domain.member.dto.MemberDto;
+import inha.capstone.fooda.utils.FoodListResDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -14,16 +18,21 @@ import java.util.Objects;
 @Getter
 @Entity
 public class Food extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "food_id")
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "feed_id")
+    private Feed feed;
 
     @Column(nullable = false)
-    private BigDecimal kcal;
+    private String foodName;
+
+    @Column(nullable = false)
+    private BigDecimal energy;
 
     @Column(nullable = false)
     private BigDecimal carbs;
@@ -35,19 +44,10 @@ public class Food extends BaseEntity {
     private BigDecimal fat;
 
     @Column(nullable = false)
-    private BigDecimal vitaminA;
+    private BigDecimal calcium;
 
     @Column(nullable = false)
-    private BigDecimal vitaminB1;
-
-    @Column(nullable = false)
-    private BigDecimal vitaminB2;
-
-    @Column(nullable = false)
-    private BigDecimal vitaminB12;
-
-    @Column(nullable = false)
-    private BigDecimal vitaminC;
+    private BigDecimal salt;
 
     @Override
     public boolean equals(Object o) {
@@ -60,5 +60,31 @@ public class Food extends BaseEntity {
     @Override
     public int hashCode() {
         return Objects.hash(this.getId());
+    }
+
+    @Builder
+    public Food(Long id, Feed feed, String foodName, BigDecimal energy, BigDecimal carbs, BigDecimal protein, BigDecimal fat, BigDecimal calcium, BigDecimal salt) {
+        this.id = id;
+        this.feed = feed;
+        this.foodName = foodName;
+        this.energy = energy;
+        this.carbs = carbs;
+        this.protein = protein;
+        this.fat = fat;
+        this.calcium = calcium;
+        this.salt = salt;
+    }
+
+    public static Food from(Feed feed, FoodListResDto foodListResDto) {
+        return Food.builder()
+                .feed(feed)
+                .foodName(foodListResDto.getName())
+                .energy(foodListResDto.getEnergy())
+                .carbs(foodListResDto.getCarbs())
+                .protein(foodListResDto.getProtein())
+                .fat(foodListResDto.getFat())
+                .calcium(foodListResDto.getCalcium())
+                .salt(foodListResDto.getSalt())
+                .build();
     }
 }
