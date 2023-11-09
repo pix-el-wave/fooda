@@ -1,6 +1,7 @@
 package inha.capstone.fooda.domain.member.dto;
 
 import inha.capstone.fooda.domain.feed_image.dto.FeedImageDto;
+import inha.capstone.fooda.utils.FeedImageResDto;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -17,8 +18,7 @@ public class GetFindProfileInfoMemberResDto {
 
     Long followingCount;
 
-    // TODO 여기 DTO 변경
-    List<FeedImageDto> feedImageList;
+    List<FeedImageResDto> feedImageList;
 
     public static GetFindProfileInfoMemberResDto from(
             String name,
@@ -26,6 +26,14 @@ public class GetFindProfileInfoMemberResDto {
             Long followerCount,
             Long followingCount,
             List<FeedImageDto> feedImageList) {
-        return new GetFindProfileInfoMemberResDto(name, feedCount, followerCount, followingCount, feedImageList);
+        return new GetFindProfileInfoMemberResDto(
+                name,
+                feedCount,
+                followerCount,
+                followingCount,
+                feedImageList
+                        .stream()
+                        .map(FeedImageResDto::from)
+                        .toList());
     }
 }
