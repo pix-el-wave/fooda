@@ -16,4 +16,8 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
     @EntityGraph(attributePaths = {"foods", "feedImages", "member"})
     @Query("SELECT DISTINCT t FROM Feed t WHERE t.createdAt BETWEEN :startDate AND :endDate AND t.member.id = :memberId")
     public List<Feed> findAllByCreatedAtBetweenAndMemberIdUsingFetchJoin(LocalDateTime startDate, LocalDateTime endDate, Long memberId);
+
+    @EntityGraph(attributePaths = {"foods", "feedImages", "member"})
+    @Query("SELECT DISTINCT t FROM Feed t WHERE t.member.id = :memberId OR t.member.id IN (SELECT f.follower.id FROM Friend f WHERE f.following.id = :memberId)")
+    public List<Feed> findFeedsByFollowing(Long memberId);
 }
