@@ -2,17 +2,21 @@ package inha.capstone.fooda.domain.food.entity;
 
 import inha.capstone.fooda.domain.common.entity.BaseEntity;
 import inha.capstone.fooda.domain.feed.entity.Feed;
-import inha.capstone.fooda.domain.member.dto.GetFindProfileInfoMemberResDto;
-import inha.capstone.fooda.domain.member.dto.MemberDto;
 import inha.capstone.fooda.utils.FoodListResDto;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import java.math.BigDecimal;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
-import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -28,31 +32,35 @@ public class Food extends BaseEntity {
     @JoinColumn(name = "feed_id")
     private Feed feed;
 
-    @Column(nullable = false)
+    @Column(name = "food_name", nullable = false)
     private String foodName;
 
-    @Column(nullable = false)
+    @Column(name = "food_energy", nullable = false)
     private BigDecimal energy;
 
-    @Column(nullable = false)
+    @Column(name = "food_carbs", nullable = false)
     private BigDecimal carbs;
 
-    @Column(nullable = false)
+    @Column(name = "food_protein", nullable = false)
     private BigDecimal protein;
 
-    @Column(nullable = false)
+    @Column(name = "food_fat", nullable = false)
     private BigDecimal fat;
 
-    @Column(nullable = false)
+    @Column(name = "food_calcium", nullable = false)
     private BigDecimal calcium;
 
-    @Column(nullable = false)
+    @Column(name = "food_salt", nullable = false)
     private BigDecimal salt;
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Food)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Food)) {
+            return false;
+        }
         Food that = (Food) o;
         return this.getId() != null && this.getId().equals(that.getId());
     }
@@ -63,7 +71,8 @@ public class Food extends BaseEntity {
     }
 
     @Builder
-    public Food(Long id, Feed feed, String foodName, BigDecimal energy, BigDecimal carbs, BigDecimal protein, BigDecimal fat, BigDecimal calcium, BigDecimal salt) {
+    public Food(Long id, Feed feed, String foodName, BigDecimal energy, BigDecimal carbs, BigDecimal protein,
+                BigDecimal fat, BigDecimal calcium, BigDecimal salt) {
         this.id = id;
         this.feed = feed;
         this.foodName = foodName;
