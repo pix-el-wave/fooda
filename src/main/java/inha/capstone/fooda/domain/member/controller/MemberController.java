@@ -37,7 +37,6 @@ public class MemberController {
     private final FeedImageService feedImageService;
     private final FriendService friendService;
 
-    // TODO 작동 테스트
     @Operation(
             summary = "사용자 프로필 화면 정보 조회 API",
             description = "<p>로그인한 사용자의 프로필 화면의 정보를 조회합니다.</p>"

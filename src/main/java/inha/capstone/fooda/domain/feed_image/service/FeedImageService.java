@@ -11,7 +11,6 @@ import inha.capstone.fooda.domain.member.entity.Member;
 import inha.capstone.fooda.domain.member.repository.MemberRepository;
 import java.awt.Image;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.imageio.ImageIO;
@@ -52,7 +51,6 @@ public class FeedImageService {
     }
 
     /**
-     * TODO 작동하는지 확인 (테스트 메소드 안적음)
      * 사용자가 업로드한 피드의 첫번째 이미지 리스트를 조회한다.
      *
      * @param username 사용자의 닉네임(아이디)
@@ -66,14 +64,10 @@ public class FeedImageService {
         // 해당 멤버가 올린 피드 조회
         List<Feed> feedList = feedRepository.findAllByMember(member);
 
-        // TODO 리팩토링
         // 피드의 첫번째 이미지 리스트
-        List<FeedImage> feedImageList = new ArrayList<>();
-        for (Feed feed : feedList) {
-            // 피드에 해당하는 제일 첫번째 피드 이미지 조회
-            FeedImage feedImage = feedImageRepository.findTop1ByFeed(feed);
-            feedImageList.add(feedImage);
-        }
+        List<FeedImage> feedImageList = feedList.stream()
+                .map(feedImageRepository::findTop1ByFeed)
+                .toList();
 
         return feedImageList.stream()
                 .map(FeedImageDto::from)

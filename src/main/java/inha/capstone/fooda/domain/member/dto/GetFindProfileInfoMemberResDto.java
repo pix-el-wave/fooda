@@ -20,7 +20,6 @@ public class GetFindProfileInfoMemberResDto {
     // TODO 여기 DTO 변경
     List<FeedImageDto> feedImageList;
 
-    // TODO from 메소드 정의
     public static GetFindProfileInfoMemberResDto from(
             String name,
             Long feedCount,
