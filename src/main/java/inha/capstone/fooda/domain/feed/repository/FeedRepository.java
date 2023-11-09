@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface FeedRepository extends JpaRepository<Feed, Long> {
 
-    @EntityGraph(attributePaths = {"foods", "feedImages"})
+    @EntityGraph(attributePaths = {"foods", "feedImages", "member"})
     @Query("SELECT DISTINCT t FROM Feed t WHERE t.createdAt BETWEEN :startDate AND :endDate AND t.member.id = :memberId")
     public List<Feed> findAllByCreatedAtBetweenAndMemberIdUsingFetchJoin(LocalDateTime startDate, LocalDateTime endDate, Long memberId);
 }
