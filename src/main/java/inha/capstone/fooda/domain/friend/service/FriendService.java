@@ -6,12 +6,11 @@ import inha.capstone.fooda.domain.friend.repository.FriendRepository;
 import inha.capstone.fooda.domain.member.dto.MemberDto;
 import inha.capstone.fooda.domain.member.entity.Member;
 import inha.capstone.fooda.domain.member.repository.MemberRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +18,26 @@ import java.util.List;
 public class FriendService {
     private final FriendRepository friendRepository;
     private final MemberRepository memberRepository;
+
+    /**
+     * 아이디가 username인 사용자가 팔로잉 수 조회
+     *
+     * @param username 조회하려는 사용자의 아이디
+     * @return 팔로잉 수
+     */
+    public long findFollowingMemberCount(String username) {
+        return friendRepository.countAllByFollower(findMemberByUsername(username));
+    }
+
+    /**
+     * 아이디가 username인 사용자의 팔로워 수 조회
+     *
+     * @param username 조회하려는 사용자의 아이디
+     * @return 팔로워 수
+     */
+    public long findFollowerMemberCount(String username) {
+        return friendRepository.countAllByFollowing(findMemberByUsername(username));
+    }
 
     /**
      * 아이디가 username인 사용자가 팔로우하고 있는 사용자 목록 조회
