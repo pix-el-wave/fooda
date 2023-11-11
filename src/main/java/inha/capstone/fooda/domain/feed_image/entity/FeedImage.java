@@ -2,15 +2,19 @@ package inha.capstone.fooda.domain.feed_image.entity;
 
 import inha.capstone.fooda.domain.common.entity.BaseEntity;
 import inha.capstone.fooda.domain.feed.entity.Feed;
-import inha.capstone.fooda.domain.feed.entity.Menu;
-import inha.capstone.fooda.domain.member.entity.Member;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -25,19 +29,23 @@ public class FeedImage extends BaseEntity {
     @JoinColumn(name = "feed_id")
     private Feed feed;
 
-    @Column(nullable = false)
+    @Column(name = "feed_image_file_name", nullable = false)
     private String fileName;
 
-    @Column(nullable = false)
+    @Column(name = "feed_image_file_name_stored", nullable = false)
     private String fileNameStored;
 
-    @Column(nullable = false)
+    @Column(name = "feed_image_url", nullable = false)
     private String url;
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof FeedImage)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof FeedImage)) {
+            return false;
+        }
         FeedImage that = (FeedImage) o;
         return this.getId() != null && this.getId().equals(that.getId());
     }

@@ -32,25 +32,25 @@ public class Food extends BaseEntity {
     @JoinColumn(name = "feed_id")
     private Feed feed;
 
-    @Column(nullable = false)
+    @Column(name = "food_name", nullable = false)
     private String foodName;
 
-    @Column(nullable = false)
+    @Column(name = "food_energy", nullable = false)
     private BigDecimal energy;
 
-    @Column(nullable = false)
+    @Column(name = "food_carbs", nullable = false)
     private BigDecimal carbs;
 
-    @Column(nullable = false)
+    @Column(name = "food_protein", nullable = false)
     private BigDecimal protein;
 
-    @Column(nullable = false)
+    @Column(name = "food_fat", nullable = false)
     private BigDecimal fat;
 
-    @Column(nullable = false)
+    @Column(name = "food_calcium", nullable = false)
     private BigDecimal calcium;
 
-    @Column(nullable = false)
+    @Column(name = "food_salt", nullable = false)
     private BigDecimal salt;
 
     @Override
