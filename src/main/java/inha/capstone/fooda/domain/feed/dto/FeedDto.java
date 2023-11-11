@@ -22,10 +22,10 @@ public class FeedDto {
     @Schema(example = "26", description = "좋아요 수")
     private Long likeCount;
 
-    @Schema(description = "피드 작성자 별명")
+    @Schema(description = "피드 작성자 이름")
     private String name;
 
-    @Schema(description = "피드 작성자 ID")
+    @Schema(description = "피드 작성자 닉네임")
     private String username;
 
     @Schema(description = "생성 날짜")
