@@ -1,7 +1,8 @@
 package inha.capstone.fooda.domain.member.dto;
 
-import inha.capstone.fooda.domain.member.entity.Gender;
-import io.swagger.v3.oas.annotations.media.Schema;
+import inha.capstone.fooda.domain.feed_image.dto.FeedImageDto;
+import inha.capstone.fooda.utils.FeedImageResDto;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,40 +10,30 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class GetFindProfileInfoMemberResDto {
-    @Schema(example = "홍길동", description = "사용자의 실명")
-    private String name;
+    String name;
 
-    @Schema(example = "gildong", description = "사용자의 아이디(닉네임)")
-    private String username;
+    Long feedCount;
 
-    @Schema(example = "MALE", description = "성별")
-    private Gender gender;
+    Long followerCount;
 
-    @Schema(example = "70", description = "몸무게")
-    private Integer weight;
+    Long followingCount;
 
-    @Schema(example = "180", description = "키")
-    private Integer height;
+    List<FeedImageResDto> feedImageList;
 
-    @Schema(example = "25", description = "나이")
-    private Integer age;
-
-    @Schema(example = "65", description = "목표몸무게")
-    private Integer targetWeight;
-
-    @Schema(example = "2000", description = "목표칼로리")
-    private Integer targetKcal;
-
-    public static GetFindProfileInfoMemberResDto from(MemberDto memberDto) {
+    public static GetFindProfileInfoMemberResDto from(
+            String name,
+            Long feedCount,
+            Long followerCount,
+            Long followingCount,
+            List<FeedImageDto> feedImageList) {
         return new GetFindProfileInfoMemberResDto(
-                memberDto.getName(),
-                memberDto.getUsername(),
-                memberDto.getGender(),
-                memberDto.getWeight(),
-                memberDto.getHeight(),
-                memberDto.getAge(),
-                memberDto.getTargetWeight(),
-                memberDto.getTargetKcal()
-        );
+                name,
+                feedCount,
+                followerCount,
+                followingCount,
+                feedImageList
+                        .stream()
+                        .map(FeedImageResDto::from)
+                        .toList());
     }
 }

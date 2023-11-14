@@ -25,38 +25,39 @@ public class Member extends BaseEntity {
     @Column(name = "member_id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "member_name", nullable = false)
     private String name;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "member_username", unique = true, nullable = false)
     private String username;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "member_password", unique = true, nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(name = "member_gender", nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column(nullable = false)
+    @Column(name = "member_weight", nullable = false)
     private Integer weight;
 
-    @Column(nullable = false)
+    @Column(name = "member_height", nullable = false)
     private Integer height;
 
-    @Column(nullable = false)
+    @Column(name = "member_age", nullable = false)
     private Integer age;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "member_role")
     private Role role;
 
-    @Column(nullable = false)
+    @Column(name = "member_target_weight", nullable = false)
     private Integer targetWeight;
 
-    @Column(nullable = false)
+    @Column(name = "member_target_kcal", nullable = false)
     private Integer targetKcal;
 
-    @Column(nullable = true)
+    @Column(name = "member_kakao_email", nullable = true)
     @Setter // 애플리케이션 회원가입 후 카카오 로그인 연동을 위해 필요
     private String kakaoEmail; // 카카오 로그인 연동 여부 판별로 사용됨.
 

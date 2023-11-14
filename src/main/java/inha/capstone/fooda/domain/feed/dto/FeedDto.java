@@ -22,6 +22,12 @@ public class FeedDto {
     @Schema(example = "26", description = "좋아요 수")
     private Long likeCount;
 
+    @Schema(description = "피드 작성자 이름")
+    private String name;
+
+    @Schema(description = "피드 작성자 닉네임")
+    private String username;
+
     @Schema(description = "생성 날짜")
     private LocalDateTime createdAt;
 
@@ -32,10 +38,12 @@ public class FeedDto {
     private List<FeedImageDto> feedImages;
 
     @Builder
-    public FeedDto(Long id, Long likeCount, LocalDateTime createdAt, List<FoodListResDto> foods, List<FeedImageDto> feedImages) {
+    public FeedDto(Long id, Long likeCount, String name, String username, LocalDateTime createdAt, List<FoodListResDto> foods, List<FeedImageDto> feedImages) {
         this.id = id;
         this.likeCount = likeCount;
         this.createdAt = createdAt;
+        this.name = name;
+        this.username = username;
         this.foods = foods;
         this.feedImages = feedImages;
     }
@@ -50,6 +58,8 @@ public class FeedDto {
                 .feedImages(feed.getFeedImages().stream()
                         .map(FeedImageDto::from)
                         .toList())
+                .name(feed.getMember().getName())
+                .username(feed.getMember().getUsername())
                 .likeCount(feed.getLikeCount())
                 .build();
     }

@@ -1,5 +1,8 @@
 package inha.capstone.fooda.domain.member.service;
 
+import inha.capstone.fooda.domain.feed.repository.FeedRepository;
+import inha.capstone.fooda.domain.feed_image.repository.FeedImageRepository;
+import inha.capstone.fooda.domain.friend.service.FriendService;
 import inha.capstone.fooda.domain.member.dto.MemberDto;
 import inha.capstone.fooda.domain.member.entity.Member;
 import inha.capstone.fooda.domain.member.repository.MemberRepository;
@@ -12,7 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class MemberService {
+    private final FriendService friendService;
     private final MemberRepository memberRepository;
+    private final FeedRepository feedRepository;
+    private final FeedImageRepository feedImageRepository;
 
     /**
      * 유저네임(아이디)로 멤버 조회
