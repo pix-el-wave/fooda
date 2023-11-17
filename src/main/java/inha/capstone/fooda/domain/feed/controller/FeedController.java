@@ -73,4 +73,19 @@ public class FeedController {
                 HttpStatus.OK
         );
     }
+
+    @Operation(
+            summary = "전체 피드 조회 API",
+            description = "<p>전체 피드을 조회합니다.</p>"
+    )
+    @GetMapping("/list/all")
+    public ResponseEntity<DataResponse<GetSelectFeedAllResDto>> selectFeedAll(
+            @Parameter(hidden = true) @AuthenticationPrincipal FoodaPrinciple principle
+    ) throws IOException {
+        List<FeedDto> feedDtoList = feedService.selectFeedByAll(principle.getMemberId());
+        return new ResponseEntity<>(
+                new DataResponse<>(new GetSelectFeedAllResDto(feedDtoList)),
+                HttpStatus.OK
+        );
+    }
 }

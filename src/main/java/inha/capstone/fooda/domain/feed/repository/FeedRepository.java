@@ -21,6 +21,8 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
     @Query("SELECT DISTINCT t FROM Feed t WHERE t.member.id = :memberId OR t.member.id IN (SELECT f.follower.id FROM Friend f WHERE f.following.id = :memberId)")
     public List<Feed> findFeedsByFollowing(@Param("memberId") Long memberId);
 
+    public List<Feed> findAll();
+
     public Long countAllByMember(Member member);
 
     public List<Feed> findAllByMember(Member member);

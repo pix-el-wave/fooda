@@ -73,6 +73,13 @@ public class FeedService {
                 .toList();
     }
 
+    public List<FeedDto> selectFeedByAll(Long memberId) {
+        List<Feed> feedList = feedRepository.findAll();
+        return feedList.stream()
+                .map(FeedDto::from)
+                .toList();
+    }
+
     public Long countFeed(String username) {
         return feedRepository.countAllByMember(
                 memberRepository.findByUsername(username)
