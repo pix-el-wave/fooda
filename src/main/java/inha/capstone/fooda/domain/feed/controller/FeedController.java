@@ -60,8 +60,8 @@ public class FeedController {
     }
 
     @Operation(
-            summary = "피드 조회 API",
-            description = "<p>피드을 조회합니다.</p>"
+            summary = "팔로잉 피드 조회 API",
+            description = "<p>팔로잉 피드을 조회합니다.</p>"
     )
     @GetMapping("/list/following")
     public ResponseEntity<DataResponse<GetSelectFeedFollowingResDto>> selectFeedFollowing(
