@@ -60,8 +60,8 @@ public class FeedController {
     }
 
     @Operation(
-            summary = "피드 조회 API",
-            description = "<p>피드을 조회합니다.</p>"
+            summary = "팔로잉 피드 조회 API",
+            description = "<p>팔로잉 피드을 조회합니다.</p>"
     )
     @GetMapping("/list/following")
     public ResponseEntity<DataResponse<GetSelectFeedFollowingResDto>> selectFeedFollowing(
@@ -70,6 +70,21 @@ public class FeedController {
         List<FeedDto> feedDtoList = feedService.selectFeedByFollowing(principle.getMemberId());
         return new ResponseEntity<>(
                 new DataResponse<>(new GetSelectFeedFollowingResDto(feedDtoList)),
+                HttpStatus.OK
+        );
+    }
+
+    @Operation(
+            summary = "전체 피드 조회 API",
+            description = "<p>전체 피드을 조회합니다.</p>"
+    )
+    @GetMapping("/list/all")
+    public ResponseEntity<DataResponse<GetSelectFeedAllResDto>> selectFeedAll(
+            @Parameter(hidden = true) @AuthenticationPrincipal FoodaPrinciple principle
+    ) throws IOException {
+        List<FeedDto> feedDtoList = feedService.selectFeedByAll(principle.getMemberId());
+        return new ResponseEntity<>(
+                new DataResponse<>(new GetSelectFeedAllResDto(feedDtoList)),
                 HttpStatus.OK
         );
     }
