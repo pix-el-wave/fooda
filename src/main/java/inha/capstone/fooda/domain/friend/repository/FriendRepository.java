@@ -16,4 +16,6 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
     List<Friend> findByFollower(Member member);
 
     Optional<Friend> findByFollowerAndFollowing(Member follower, Member following);
+
+    Boolean existsByFollowerAndFollowing(Member follower, Member following);
 }
