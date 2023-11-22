@@ -3,6 +3,7 @@ package inha.capstone.fooda.domain.common.exception;
 import inha.capstone.fooda.domain.auth.exception.JwtUnauthorizedException;
 import inha.capstone.fooda.domain.auth.exception.KakaoOAuthUnauthorizedException;
 import inha.capstone.fooda.domain.feed_image.exception.NotImageFileExcpetion;
+import inha.capstone.fooda.domain.friend.exception.FriendDuplicateException;
 import inha.capstone.fooda.domain.friend.exception.FriendNotFoundException;
 import inha.capstone.fooda.domain.member.exception.UsernameDuplicateException;
 import inha.capstone.fooda.domain.member.exception.UsernameNotFoundExcpetion;
@@ -44,7 +45,8 @@ public enum ExceptionType {
     NOT_IMAGE_FILE_EXCEPTION(4000, "유효한 이미지 파일이 아닙니다.", NotImageFileExcpetion.class),
 
     // Friend
-    FRIEND_NOT_FOUND_EXCEPTION(5000, "팔로우 정보가 조회되지 않습니다.", FriendNotFoundException.class);
+    FRIEND_NOT_FOUND_EXCEPTION(5000, "팔로우 정보가 조회되지 않습니다.", FriendNotFoundException.class),
+    FRIEND_DUPLICATE_EXCEPTION(5001, "팔로우 정보가 이미 존재합니다.", FriendDuplicateException.class);
 
     private final int errorCode;
     private final String errorMessage;

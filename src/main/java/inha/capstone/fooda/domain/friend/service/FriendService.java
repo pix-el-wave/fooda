@@ -1,6 +1,7 @@
 package inha.capstone.fooda.domain.friend.service;
 
 import inha.capstone.fooda.domain.friend.entity.Friend;
+import inha.capstone.fooda.domain.friend.exception.FriendDuplicateException;
 import inha.capstone.fooda.domain.friend.exception.FriendNotFoundException;
 import inha.capstone.fooda.domain.friend.repository.FriendRepository;
 import inha.capstone.fooda.domain.member.dto.MemberDto;
@@ -82,11 +83,21 @@ public class FriendService {
      */
     @Transactional
     public Long requestToFollow(String followerUsername, String followingUsername) {
+        // 팔로우 정보가 기존에 존재하는지 확인
+        if (friendRepository.existsByFollowerAndFollowing(
+                findMemberByUsername(followerUsername),
+                findMemberByUsername(followingUsername)
+        )) {
+            throw new FriendDuplicateException("이미 해당 팔로우 정보가 존재합니다.");
+        }
+
+        // 팔로우 정보 저장
         Friend savedFriend = friendRepository.save(
                 Friend.builder()
                         .follower(findMemberByUsername(followerUsername))
                         .following(findMemberByUsername(followingUsername))
                         .build());
+
         return savedFriend.getId();
     }
 
