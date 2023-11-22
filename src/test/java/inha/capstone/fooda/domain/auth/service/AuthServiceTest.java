@@ -1,10 +1,17 @@
-package inha.capstone.fooda.domain.member.service;
+package inha.capstone.fooda.domain.auth.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+
+import inha.capstone.fooda.domain.auth.service.AuthService;
 import inha.capstone.fooda.domain.member.dto.MemberDto;
 import inha.capstone.fooda.domain.member.entity.Gender;
 import inha.capstone.fooda.domain.member.entity.Member;
 import inha.capstone.fooda.domain.member.repository.MemberRepository;
 import inha.capstone.fooda.security.JwtTokenProvider;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,11 +19,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.util.ReflectionTestUtils;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)
 class AuthServiceTest {
@@ -42,6 +44,22 @@ class AuthServiceTest {
 
         //then
         then(memberRepository).should().save(any(Member.class));
+    }
+
+    @Test
+    public void 유저_닉네임과_카카오_이메일이_주어지면_유저의_카카오_이메일_정보를_수정한다() {
+        //given
+        Member member = createMember();
+        String username = "member1";
+        String kakaoEmail = "member1@test.com";
+        given(memberRepository.findByUsername(username)).willReturn(Optional.ofNullable(member));
+
+        //when
+        authService.connectWithKakao(username, kakaoEmail);
+
+        //then
+        assert member != null;
+        assertThat(member.getKakaoEmail()).isEqualTo(kakaoEmail);
     }
 
     private Member createMember() {

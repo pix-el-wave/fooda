@@ -1,5 +1,6 @@
-package inha.capstone.fooda.domain.member.dto;
+package inha.capstone.fooda.domain.auth.dto;
 
+import inha.capstone.fooda.domain.member.dto.MemberDto;
 import inha.capstone.fooda.domain.member.entity.Gender;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PostSignupMemberReqDto {
+public class PostSignupAuthReqDto {
     @NotBlank(message = "이름을 입력해주세요.")
     @Size(min = 2, message = "이름이 너무 짧습니다.")
     @Schema(example = "홍길동", description = "사용자의 실명")
