@@ -27,6 +27,7 @@ public class FoodService {
                 .map(dto -> Food.from(feed, dto))
                 .toList();
 
+        foodRepository.deleteByFeedId(feed.getId());
         foodRepository.saveAll(foods);
     }
 }
