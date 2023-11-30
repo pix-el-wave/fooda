@@ -4,10 +4,12 @@ import inha.capstone.fooda.domain.feed.entity.Feed;
 import inha.capstone.fooda.domain.feed.repository.FeedRepository;
 import inha.capstone.fooda.domain.food.dto.NutrientDto;
 import inha.capstone.fooda.domain.food.entity.Food;
+import inha.capstone.fooda.domain.food.exception.NotFoundFeedException;
 import inha.capstone.fooda.domain.food.repository.FoodRepository;
 import inha.capstone.fooda.domain.food.exception.MemberNotEqualFeedMemberException;
 import inha.capstone.fooda.utils.FoodListResDto;
 import inha.capstone.fooda.utils.*;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,18 +33,20 @@ public class FoodService {
 
     @Transactional
     public void uploadFood(Long feedId, List<FoodListResDto> foodList, Long memberId) throws IOException {
-        Feed feed = feedRepository.getReferenceById(feedId);
+        try {
+            Feed feed = feedRepository.getReferenceById(feedId);
+            if (!feed.getMember().getId().equals(memberId)) {
+                throw new MemberNotEqualFeedMemberException(memberId + "는 피드 작성자 와 달라서 접근할 수 없습니다.");
+            }
+            List<Food> foods = foodList.stream()
+                    .map(dto -> Food.from(feed, dto))
+                    .toList();
 
-        if (!feed.getMember().getId().equals(memberId)) {
-            throw new MemberNotEqualFeedMemberException(memberId + "는 피드 작성자 와 달라서 접근할 수 없습니다.");
+            foodRepository.deleteByFeedId(feed.getId());
+            foodRepository.saveAll(foods);
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundFeedException(feedId + "인 피드가 존재하지 않습니다.");
         }
-
-        List<Food> foods = foodList.stream()
-                .map(dto -> Food.from(feed, dto))
-                .toList();
-
-        foodRepository.deleteByFeedId(feed.getId());
-        foodRepository.saveAll(foods);
     }
 
     public String analyzeFood(Long memberId, LocalDate date) throws IOException {
