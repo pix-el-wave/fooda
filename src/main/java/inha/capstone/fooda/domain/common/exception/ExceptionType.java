@@ -3,8 +3,10 @@ package inha.capstone.fooda.domain.common.exception;
 import inha.capstone.fooda.domain.auth.exception.JwtUnauthorizedException;
 import inha.capstone.fooda.domain.auth.exception.KakaoOAuthUnauthorizedException;
 import inha.capstone.fooda.domain.feed_image.exception.NotImageFileExcpetion;
+import inha.capstone.fooda.domain.food.exception.MemberNotEqualFeedMemberException;
 import inha.capstone.fooda.domain.friend.exception.FriendDuplicateException;
 import inha.capstone.fooda.domain.friend.exception.FriendNotFoundException;
+import inha.capstone.fooda.domain.member.entity.Member;
 import inha.capstone.fooda.domain.member.exception.UsernameDuplicateException;
 import inha.capstone.fooda.domain.member.exception.UsernameNotFoundExcpetion;
 import java.util.Arrays;
@@ -46,7 +48,10 @@ public enum ExceptionType {
 
     // Friend
     FRIEND_NOT_FOUND_EXCEPTION(5000, "팔로우 정보가 조회되지 않습니다.", FriendNotFoundException.class),
-    FRIEND_DUPLICATE_EXCEPTION(5001, "팔로우 정보가 이미 존재합니다.", FriendDuplicateException.class);
+    FRIEND_DUPLICATE_EXCEPTION(5001, "팔로우 정보가 이미 존재합니다.", FriendDuplicateException.class),
+
+    // Food
+    MEMBER_NOT_EQUAL_FEED_MEMBER_EXCEPTION(6000, "피드 작성자가 아닙니다.", MemberNotEqualFeedMemberException.class);
 
     private final int errorCode;
     private final String errorMessage;

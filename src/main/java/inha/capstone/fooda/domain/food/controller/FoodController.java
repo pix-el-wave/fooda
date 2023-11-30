@@ -36,7 +36,7 @@ public class FoodController {
             @Parameter(hidden = true) @AuthenticationPrincipal FoodaPrinciple principle,
             @Valid @RequestBody PostFoodReqDto postFoodReqDto
     ) throws IOException {
-        foodService.uploadFood(postFoodReqDto.getFeedId(), postFoodReqDto.getFoodList());
+        foodService.uploadFood(postFoodReqDto.getFeedId(), postFoodReqDto.getFoodList(), principle.getMemberId());
 
         return new ResponseEntity<>(
                 new DataResponse<>(new PostFoodResDto(true)),
