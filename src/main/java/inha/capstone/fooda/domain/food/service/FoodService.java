@@ -55,6 +55,10 @@ public class FoodService {
         }
     }
 
+    public NutrientDto nutrient(Long memberId, LocalDate date) throws IOException {
+        return foodRepository.findSumOfCalDay(memberId, date.atStartOfDay(), date.plusDays(1).atStartOfDay());
+    }
+
     public String analyzeFood(Long memberId, LocalDate date) throws IOException {
         NutrientDto now = foodRepository.findSumOfCalDay(memberId, date.atStartOfDay(), date.plusDays(1).atStartOfDay());
 
