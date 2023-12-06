@@ -2,12 +2,14 @@ package inha.capstone.fooda.domain.food.dto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 
 @Getter
+@Builder
 public class NutrientDto {
     private BigDecimal calcium;
     private BigDecimal carbs;

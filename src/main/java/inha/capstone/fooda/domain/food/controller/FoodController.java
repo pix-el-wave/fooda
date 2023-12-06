@@ -34,7 +34,7 @@ public class FoodController {
             @Parameter(hidden = true) @AuthenticationPrincipal FoodaPrinciple principle,
             @Valid @RequestBody PostFoodReqDto postFoodReqDto
     ) throws IOException {
-        foodService.uploadFood(postFoodReqDto.getFeedId(), postFoodReqDto.getFoodList());
+        foodService.uploadFood(postFoodReqDto.getFeedId(), postFoodReqDto.getFoodList(), principle.getMemberId());
 
         return new ResponseEntity<>(
                 new DataResponse<>(new PostFoodResDto(true)),
@@ -55,6 +55,23 @@ public class FoodController {
 
         return new ResponseEntity<>(
                 new DataResponse<>(new PostAnalyzeResDto(analyze)),
+                HttpStatus.OK
+        );
+    }
+
+    @Operation(
+            summary = "그날 먹은 영양소 API",
+            description = "<p>그날 먹은 영양소 섭취량은 반환합니다.</p>"
+    )
+    @PostMapping("/nutrient")
+    public ResponseEntity<DataResponse<PostNutrientResDto>> nutrient(
+            @Parameter(hidden = true) @AuthenticationPrincipal FoodaPrinciple principle,
+            @Valid @RequestBody PostNutrientReqDto postAnalyzeReqDto
+    ) throws IOException {
+        NutrientDto nutrientDto = foodService.nutrient(principle.getMemberId(), postAnalyzeReqDto.getDate());
+
+        return new ResponseEntity<>(
+                new DataResponse<>(new PostNutrientResDto(nutrientDto)),
                 HttpStatus.OK
         );
     }

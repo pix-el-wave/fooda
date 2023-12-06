@@ -1,17 +1,20 @@
 package inha.capstone.fooda.domain.food.repository;
 
-import inha.capstone.fooda.domain.feed.entity.Feed;
 import inha.capstone.fooda.domain.food.dto.NutrientDto;
 import inha.capstone.fooda.domain.food.entity.Food;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public interface FoodRepository extends JpaRepository<Food, Long> {
+
+    @Modifying
+    @Query("DELETE FROM Food f WHERE f.feed.id = :feedId")
+    void deleteByFeedId(@Param("feedId") Long feedId);
 
     @Query(value = "SELECT new inha.capstone.fooda.domain.food.dto.NutrientDto(" +
             "SUM(f.calcium) as calcium, SUM(f.carbs) as carbs, SUM(f.energy) as energy, " +

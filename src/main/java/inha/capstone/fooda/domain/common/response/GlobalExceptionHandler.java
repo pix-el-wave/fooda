@@ -47,6 +47,7 @@ public class GlobalExceptionHandler {
                 .body(new ErrorResponse(errorCode, errorMessage));
     }
 
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorResponse> constraintViolationExceptionHandle(ConstraintViolationException e) {
         log.error("ConstraintViolationException: {}", String.valueOf(e));
